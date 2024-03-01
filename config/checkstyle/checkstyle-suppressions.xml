@@ -10,3 +10,4 @@
     <suppress checks="HideUtilityClassConstructor" files="[A-Z][a-zA-Z0-9]*Application.java"/>
     <suppress checks="MagicNumber" files=".*Test\.java"/>
 </suppressions>
+
