@@ -1,0 +1,47 @@
+version: '3'
+
+services:
+  db:
+    container_name: postgres
+    image: postgres:latest
+    restart: always
+    environment:
+      POSTGRES_USER: customer_db_user
+      POSTGRES_PASSWORD: iprody123
+      POSTGRES_DB: customer_db
+      PGDATA: /var/lib/postgresql/data/pgdata
+    ports:
+        - 5434:5434
+    volumes:
+      - database-data:/var/lib/postgresql/data
+
+  pgAdmin:
+    container_name: pg_admin
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@gmail.com
+      PGADMIN_DEFAULT_PASSWORD: 123
+    volumes:
+      - pgAdmin:/var/lib/pgadmin
+    ports:
+      - 8888:80
+    depends_on:
+      - db
+
+#  customer-service:
+#    container_name: customer-service
+#    build:
+#        dockerfile: Dockerfile
+#    restart: always
+#    ports:
+#        - 8080:8080
+#    environment:
+#        POSTGRES_HOST: db
+#    depends_on:
+#        - db
+#        - pgAdmin
+
+volumes:
+  database-data:
+  pgAdmin:
+
