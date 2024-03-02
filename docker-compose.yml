@@ -6,18 +6,32 @@ services:
     image: postgres:latest
     restart: always
     environment:
-      POSTGRES_USER: customer_db_user
-      POSTGRES_PASSWORD: iprody123
-      POSTGRES_DB: customer_db
+      POSTGRES_USER: ${POSTGRES_USER:-customer_user}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-iprody123}
+      POSTGRES_DB: customer-service
       PGDATA: /var/lib/postgresql/data/pgdata
     ports:
-        - 5434:5434
+        - 5434:5432
     volumes:
       - database-data:/var/lib/postgresql/data
+    networks:
+      - backend
+
+  customer-service:
+    image: customer-service:latest
+    restart: always
+    ports:
+      - 8080:8080
+    networks:
+      - backend
+    depends_on:
+      - db
+      - pgAdmin
 
   pgAdmin:
-    container_name: pg_admin
+    container_name: pg_admin4
     image: dpage/pgadmin4
+    restart: always
     environment:
       PGADMIN_DEFAULT_EMAIL: admin@gmail.com
       PGADMIN_DEFAULT_PASSWORD: 123
@@ -27,21 +41,15 @@ services:
       - 8888:80
     depends_on:
       - db
+    networks:
+      - backend
 
-#  customer-service:
-#    container_name: customer-service
-#    build:
-#        dockerfile: Dockerfile
-#    restart: always
-#    ports:
-#        - 8080:8080
-#    environment:
-#        POSTGRES_HOST: db
-#    depends_on:
-#        - db
-#        - pgAdmin
+
 
 volumes:
   database-data:
   pgAdmin:
 
+networks:
+  backend:
+    driver: bridge
