@@ -44,8 +44,6 @@ services:
     networks:
       - backend
 
-
-
 volumes:
   database-data:
   pgAdmin:
