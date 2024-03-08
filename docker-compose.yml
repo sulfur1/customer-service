@@ -17,16 +17,16 @@ services:
     networks:
       - backend
 
-  customer-service:
-    image: customer-service:latest
-    restart: always
-    ports:
-      - 8080:8080
-    networks:
-      - backend
-    depends_on:
-      - db
-      - pgAdmin
+#  customer-service:
+#    image: customer-service:latest
+#    restart: always
+#    ports:
+#      - 8080:8080
+#    networks:
+#      - backend
+#    depends_on:
+#      - db
+#      - pgAdmin
 
   pgAdmin:
     container_name: pg_admin4
