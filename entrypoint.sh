@@ -1,3 +1,3 @@
 #!/bin/bash
 
-java -jar customer-service.jar
+java -jar /app/customer-service.jar
