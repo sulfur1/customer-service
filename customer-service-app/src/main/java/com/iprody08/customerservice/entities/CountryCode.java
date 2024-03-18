@@ -3,11 +3,8 @@ package com.iprody08.customerservice.entities;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
@@ -17,29 +14,23 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.Instant;
-import java.util.List;
 
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 @Entity
-@Table(name = "countries")
-public class Country {
+@Table(name = "country_codes")
+public class CountryCode {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private Long id;
-
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "country_code", nullable = false)
-    private CountryCode countryCode;
+    private String code;
 
     @Column(nullable = false)
     private String name;
 
-    @OneToMany(fetch = FetchType.LAZY)
-    @JoinColumn(name = "customer_id", nullable = false)
-    private List<Customer> customer;
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "country_id")
+    private Country country;
 
     @CreationTimestamp
     @Column(name = "created_at", nullable = false)
