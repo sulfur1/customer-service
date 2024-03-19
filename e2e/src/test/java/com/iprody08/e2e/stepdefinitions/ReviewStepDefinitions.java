@@ -1,10 +1,10 @@
-package com.iprody08.e2e.stepdefs;
+package com.iprody08.e2e.stepdefinitions;
 
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 
-public class StepDefinitions {
+public class ReviewStepDefinitions {
     @Given("I have completed course in my customer")
     public void i_have_completed_course_in_my_customer() {
         System.out.println("Completed course.");
