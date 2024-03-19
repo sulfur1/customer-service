@@ -1,0 +1,33 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+            http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd
+            http://www.liquibase.org/xml/ns/dbchangelog-ext
+            http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+    <changeSet id="01_country_codes" author="sakhmina">
+        <sqlFile
+                encoding="UTF-8"
+                endDelimiter="\nGO"
+                stripComments="true"
+                relativeToChangelogFile="true"
+                path="01-create-country-codes-table.sql"/>
+        <sqlFile
+                encoding="UTF-8"
+                endDelimiter="\nGO"
+                stripComments="true"
+                relativeToChangelogFile="true"
+                path="01-insert-country-codes-table.sql"/>
+        <rollback>
+            <sqlFile
+                    encoding="UTF-8"
+                    endDelimiter="\nGO"
+                    stripComments="true"
+                    relativeToChangelogFile="true"
+                    path="01-drop-country-codes-table.sql"/>
+        </rollback>
+    </changeSet>
+
+</databaseChangeLog>
