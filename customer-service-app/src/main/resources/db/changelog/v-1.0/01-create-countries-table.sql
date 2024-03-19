@@ -11,3 +11,7 @@ CREATE TABLE IF NOT EXISTS countries
 )
 
 GO
+
+CREATE INDEX  IF NOT EXISTS countries_country_code_idx ON countries (country_code);
+
+GO
