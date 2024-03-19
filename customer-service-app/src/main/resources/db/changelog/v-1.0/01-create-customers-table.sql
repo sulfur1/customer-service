@@ -15,3 +15,11 @@ CREATE TABLE IF NOT EXISTS customers
 )
 
 GO
+
+CREATE INDEX IF NOT EXISTS customers_country_id_idx ON customers (country_id);
+
+GO
+
+CREATE INDEX IF NOT EXISTS customers_contact_details_id_idx ON customers (contact_details_id);
+
+GO
