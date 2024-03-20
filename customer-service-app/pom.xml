@@ -15,6 +15,10 @@
 	<name>customer-service-app</name>
 	<description>Demo project for Spring Boot</description>
 
+	<properties>
+		<checkstyle.dir>${basedir}/../checkstyle</checkstyle.dir>
+	</properties>
+
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
