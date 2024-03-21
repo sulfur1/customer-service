@@ -1,17 +1,15 @@
-CREATE TABLE IF NOT EXISTS countries
-(
-    id              bigint                      NOT NULL,
-    country_code    varchar(3)                  NOT NULL,
-    name            varchar(30)                 NOT NULL,
-    created_at      timestamp with time zone    NOT NULL,
-    updated_at      timestamp with time zone    NOT NULL,
-    CONSTRAINT countries_pkey   PRIMARY KEY (id),
-    CONSTRAINT fk_country_code  FOREIGN KEY(country_code)
-            REFERENCES country_codes(code)
-)
+CREATE SEQUENCE my_sequence START 1;
 
 GO
 
-CREATE INDEX  IF NOT EXISTS countries_country_code_idx ON countries (country_code);
+CREATE TABLE IF NOT EXISTS countries
+(
+    id              bigint DEFAULT nextval('my_sequence'::regclass) NOT NULL,
+    country_code    varchar(3)                  NOT NULL,
+    name            varchar(100)                NOT NULL,
+    created_at      timestamp with time zone    NOT NULL DEFAULT NOW(),
+    updated_at      timestamp with time zone    NOT NULL DEFAULT NOW(),
+    CONSTRAINT countries_pkey   PRIMARY KEY (id)
+)
 
 GO
