@@ -8,7 +8,6 @@
             http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
 
     <include file="01-changeset-contact-details-table.xml" relativeToChangelogFile="true" />
-    <include file="01-changeset-country-codes-table.xml" relativeToChangelogFile="true" />
     <include file="01-changeset-countries-table.xml" relativeToChangelogFile="true" />
     <include file="01-changeset-customers-table.xml" relativeToChangelogFile="true" />
 

@@ -14,6 +14,12 @@
                 stripComments="true"
                 relativeToChangelogFile="true"
                 path="01-create-countries-table.sql"/>
+        <sqlFile
+                encoding="UTF-8"
+                endDelimiter="\nGO"
+                stripComments="true"
+                relativeToChangelogFile="true"
+                path="01-insert-countries-table.sql"/>
         <rollback>
             <sqlFile
                     encoding="UTF-8"
