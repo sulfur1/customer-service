@@ -25,8 +25,8 @@ INSERT INTO countries(name, country_code) VALUES
 ('Benin', 'BEN'),
 ('Bermuda', 'BMU'),
 ('Bhutan', 'BTN'),
-('Bolivia, Plurinational State of', 'BOL'),
-('Bonaire, Saint Eustatius and Saba', 'BES'),
+('Bolivia', 'BOL'),
+('Bonaire Saint Eustatius and Saba', 'BES'),
 ('Bosnia and Herzegovina', 'BIH'),
 ('Botswana', 'BWA'),
 ('Bouvet Island', 'BVT'),
@@ -62,15 +62,15 @@ INSERT INTO countries(name, country_code) VALUES
 ('Denmark', 'DNK'),
 ('Djibouti', 'DJI'),
 ('Dominica', 'DMA'),
-('Dominican Republic', 'DOM')
-('Ecuador', 'ECU')
-('Egypt', 'EGY')
-('El Salvador', 'SLV')
+('Dominican Republic', 'DOM'),
+('Ecuador', 'ECU'),
+('Egypt', 'EGY'),
+('El Salvador', 'SLV'),
 ('Equatorial Guinea', 'GNQ'),
 ('Eritrea', 'ERI'),
 ('Estonia', 'EST'),
 ('Ethiopia', 'ETH'),
-('Falkland Islands (Malvinas)', 'FLK'),,
+('Falkland Islands (Malvinas)', 'FLK'),
 ('Faroe Islands', 'FRO'),
 ('Fiji', 'FJI'),
 ('Finland', 'FIN'),
@@ -241,7 +241,7 @@ INSERT INTO countries(name, country_code) VALUES
 ('Venezuela', 'VEN'),
 ('Viet Nam', 'VNM'),
 ('Virgin Islands', 'VGB'),
-('Virgin Islands', 'VIR')
+('Virgin Islands', 'VIR'),
 ('Wallis and Futuna', 'WLF'),
 ('Western Sahara', 'ESH'),
 ('Yemen', 'YEM'),
