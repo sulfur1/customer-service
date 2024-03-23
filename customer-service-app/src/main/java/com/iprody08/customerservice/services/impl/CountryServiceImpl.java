@@ -4,7 +4,6 @@ import com.iprody08.customerservice.dto.CountryDTO;
 import com.iprody08.customerservice.dto.mapper.CountryMapper;
 import com.iprody08.customerservice.repositories.CountryRepository;
 import com.iprody08.customerservice.services.CountryService;
-import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,14 +25,12 @@ public class CountryServiceImpl implements CountryService {
     }
 
     @Override
-    @Transactional
     public Optional<CountryDTO> findCountryById(long id) {
         return countryRepository.findById(id) //todo add factory validator
                 .map(countryMapper::countryToDTO);
     }
 
     @Override
-    @Transactional
     public List<CountryDTO> findAll() {
         return countryRepository.findAll().stream() //todo add factory validator
                 .map(countryMapper::countryToDTO)

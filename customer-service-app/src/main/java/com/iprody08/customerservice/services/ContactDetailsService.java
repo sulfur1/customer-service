@@ -8,7 +8,7 @@ public interface ContactDetailsService {
 
     ContactDetailsDTO save(ContactDetailsDTO contactDetailsDTO);
 
-    Optional<ContactDetailsDTO> update(ContactDetailsDTO contactDetailsDTO);
+    ContactDetailsDTO update(ContactDetailsDTO contactDetailsDTO);
     Optional<ContactDetailsDTO> findContactsById(long id);
 
     void delete(long id);
