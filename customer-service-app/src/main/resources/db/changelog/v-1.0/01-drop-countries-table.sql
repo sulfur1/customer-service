@@ -2,6 +2,6 @@ drop table countries;
 
 GO
 
-drop sequence my_sequence;
+drop sequence countries_seq;
 
 GO
