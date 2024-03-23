@@ -1,3 +1,7 @@
+CREATE SEQUENCE countries_seq START 1;
+
+GO
+
 CREATE TABLE IF NOT EXISTS countries
 (
     id              bigint DEFAULT nextval('countries_seq'::regclass) NOT NULL,
