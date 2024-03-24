@@ -1,6 +1,10 @@
+CREATE SEQUENCE customers_seq;
+
+GO
+
 CREATE TABLE IF NOT EXISTS customers
 (
-    id                  bigint      NOT NULL,
+    id                  bigint DEFAULT nextval('customers_seq') NOT NULL,
     name                varchar(30) NOT NULL,
     surname             varchar(30) NOT NULL,
     country_id          bigint      NOT NULL,
