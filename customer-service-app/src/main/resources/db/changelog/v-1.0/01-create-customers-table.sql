@@ -1,4 +1,4 @@
-CREATE SEQUENCE customers_seq;
+CREATE SEQUENCE IF NOT EXISTS customers_seq;
 
 GO
 

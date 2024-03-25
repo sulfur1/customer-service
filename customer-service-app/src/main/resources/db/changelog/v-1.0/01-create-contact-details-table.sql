@@ -1,4 +1,4 @@
-CREATE SEQUENCE contact_details_seq;
+CREATE SEQUENCE IF NOT EXISTS contact_details_seq;
 
 GO
 

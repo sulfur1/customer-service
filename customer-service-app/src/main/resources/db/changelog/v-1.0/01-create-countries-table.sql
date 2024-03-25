@@ -1,4 +1,4 @@
-CREATE SEQUENCE countries_seq;
+CREATE SEQUENCE IF NOT EXISTS countries_seq;
 
 GO
 
