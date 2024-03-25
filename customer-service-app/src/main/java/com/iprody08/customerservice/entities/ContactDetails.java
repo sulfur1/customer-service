@@ -32,8 +32,8 @@ public class ContactDetails {
     @SequenceGenerator(name = "contact_details_seq", sequenceName = "contact_details_seq", allocationSize = 1)
     private Long id;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "customer_id", nullable = false)
+    @OneToOne(fetch = FetchType.LAZY, mappedBy = "contactDetails")
+    @JoinColumn(name = "customer_id")
     private Customer customer;
 
     @Column(nullable = false)

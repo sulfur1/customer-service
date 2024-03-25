@@ -1,10 +1,10 @@
-CREATE SEQUENCE countries_seq START 1;
+CREATE SEQUENCE IF NOT EXISTS countries_seq;
 
 GO
 
 CREATE TABLE IF NOT EXISTS countries
 (
-    id              bigint DEFAULT nextval('countries_seq'::regclass) NOT NULL,
+    id              bigint DEFAULT nextval('countries_seq') NOT NULL,
     country_code    varchar(3)                  NOT NULL,
     name            varchar(100)                NOT NULL,
     created_at      timestamp with time zone    NOT NULL DEFAULT NOW(),
