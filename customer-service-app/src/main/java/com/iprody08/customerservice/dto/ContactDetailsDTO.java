@@ -1,5 +1,6 @@
 package com.iprody08.customerservice.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.iprody08.customerservice.entities.Customer;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -15,6 +16,7 @@ public class ContactDetailsDTO {
 
     private Long id;
 
+    @JsonIgnore
     private Customer customer;
 
     private String email;
