@@ -13,6 +13,8 @@ public interface ContactDetailsMapper {
     @Mapping(target = "updatedAt", ignore = true)
     ContactDetails dtoToEntity(ContactDetailsDTO contactDetailsDTO);
 
+
+    @Mapping(target = "customerId", source = "customer.id")
     ContactDetailsDTO entityToDTO(ContactDetails contactDetails);
 
 }

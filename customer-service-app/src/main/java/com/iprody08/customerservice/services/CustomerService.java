@@ -16,4 +16,9 @@ public interface CustomerService {
 
     List<CustomerDTO> findAllCustomers();
 
+    Optional<CustomerDTO> findCustomerByEmail(String email);
+    Optional<CustomerDTO> findCustomerByTelegramId(String telegramId);
+
+    List<CustomerDTO> findCustomerByName(String name);
+    List<CustomerDTO> findCustomerBySurname(String surname);
 }
