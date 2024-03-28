@@ -1,3 +1,3 @@
 #!/bin/bash
 
-java -jar app.jar
+java -jar e2e.jar
