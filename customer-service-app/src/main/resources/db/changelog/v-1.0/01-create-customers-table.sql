@@ -1,6 +1,10 @@
+CREATE SEQUENCE IF NOT EXISTS customers_seq;
+
+GO
+
 CREATE TABLE IF NOT EXISTS customers
 (
-    id                  bigint      NOT NULL,
+    id                  bigint DEFAULT nextval('customers_seq') NOT NULL,
     name                varchar(30) NOT NULL,
     surname             varchar(30) NOT NULL,
     country_id          bigint      NOT NULL,
@@ -13,5 +17,13 @@ CREATE TABLE IF NOT EXISTS customers
     CONSTRAINT fk_country_id        FOREIGN KEY(country_id)
         REFERENCES countries(id)
 )
+
+GO
+
+CREATE INDEX IF NOT EXISTS customers_country_id_idx ON customers (country_id);
+
+GO
+
+CREATE INDEX IF NOT EXISTS customers_contact_details_id_idx ON customers (contact_details_id);
 
 GO

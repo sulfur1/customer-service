@@ -8,17 +8,21 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
+import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Builder;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
-
 import javax.validation.constraints.Pattern;
 import java.time.Instant;
 
-@Data
+@Getter
+@Setter
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
@@ -26,11 +30,12 @@ import java.time.Instant;
 public class ContactDetails {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "contact_details_seq")
+    @SequenceGenerator(name = "contact_details_seq", sequenceName = "contact_details_seq", allocationSize = 1)
     private Long id;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "customer_id", nullable = false)
+    @OneToOne(fetch = FetchType.LAZY, mappedBy = "contactDetails")
+    @JoinColumn(name = "customer_id")
     private Customer customer;
 
     @Column(nullable = false)
