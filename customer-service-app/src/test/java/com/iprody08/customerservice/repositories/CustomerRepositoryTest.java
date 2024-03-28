@@ -31,7 +31,7 @@ public class CustomerRepositoryTest {
 
 
     @Test
-    public void findAllCustomers(){
+    public void findAllCustomers() {
 
         //given
 
