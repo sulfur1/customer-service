@@ -11,8 +11,17 @@ public interface CustomerMapper {
     @Mapping(target = "createdAt", ignore = true)
     @Mapping(target = "updatedAt", ignore = true)
     @Mapping(target = "id", ignore = true)
+    @Mapping(target = "country.id", source = "countryId")
+    @Mapping(target = "contactDetails.email", source = "email")
+    @Mapping(target = "contactDetails.telegramId", source = "telegramId")
     Customer dtoToCustomer(CustomerDTO customerDTO);
 
+    @Mapping(target = "countryId", source = "country.id")
+    @Mapping(target = "countryName", source = "country.name")
+    @Mapping(target = "email", source = "contactDetails.email")
+    @Mapping(target = "telegramId", source = "contactDetails.telegramId")
+    @Mapping(target = "createdAt", source = "createdAt")
+    @Mapping(target = "updatedAt", source = "updatedAt")
     CustomerDTO customerToDTO(Customer customer);
 
 }

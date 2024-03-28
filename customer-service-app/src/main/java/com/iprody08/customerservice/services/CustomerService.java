@@ -6,14 +6,19 @@ import java.util.Optional;
 
 public interface CustomerService {
 
-    CustomerDTO save(CustomerDTO customerDTO);
+    CustomerDTO saveCustomer(CustomerDTO customerDTO);
 
-    Optional<CustomerDTO> update(CustomerDTO customerDTO);
+    CustomerDTO updateCustomer(CustomerDTO customerDTO);
 
-    Optional<CustomerDTO> findById(Long id);
+    Optional<CustomerDTO> findCustomerById(long id);
 
-    void delete(Long id);
+    void deleteCustomer(long id);
 
-    List<CustomerDTO> findAll();
+    List<CustomerDTO> findAllCustomers();
 
+    Optional<CustomerDTO> findCustomerByEmail(String email);
+    Optional<CustomerDTO> findCustomerByTelegramId(String telegramId);
+
+    List<CustomerDTO> findCustomerByName(String name);
+    List<CustomerDTO> findCustomerBySurname(String surname);
 }

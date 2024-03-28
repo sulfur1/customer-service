@@ -1,10 +1,10 @@
 package com.iprody08.customerservice.dto;
 
-import com.iprody08.customerservice.entities.Customer;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
 import java.time.Instant;
 
 @Getter
@@ -15,7 +15,7 @@ public class ContactDetailsDTO {
 
     private Long id;
 
-    private Customer customer;
+    private Long customerId;
 
     private String email;
 
