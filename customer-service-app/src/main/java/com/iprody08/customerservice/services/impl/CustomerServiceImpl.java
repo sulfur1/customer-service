@@ -1,6 +1,7 @@
 package com.iprody08.customerservice.services.impl;
 
 import com.iprody08.customerservice.dto.CustomerDTO;
+import com.iprody08.customerservice.dto.CustomerListParams;
 import com.iprody08.customerservice.dto.mapper.CustomerMapper;
 import com.iprody08.customerservice.entities.Country;
 import com.iprody08.customerservice.entities.Customer;
@@ -11,6 +12,9 @@ import jakarta.persistence.EntityExistsException;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -99,10 +103,13 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public List<CustomerDTO> findAllCustomers() {
-        return customerRepository.findAll().stream()
-                .map(customerMapper::customerToDTO)
-                .collect(Collectors.toList());
+    public Page<CustomerDTO> findAllCustomers(CustomerListParams customerListParams) {
+        return customerRepository.findAll(
+                PageRequest.of(
+                        customerListParams.getPage(), //default on controller level with not null expectation;
+                        customerListParams.getSize(),
+                        Sort.by(customerListParams.getSortField())))
+                .map(customerMapper::customerToDTO);
     }
 
     @Override
