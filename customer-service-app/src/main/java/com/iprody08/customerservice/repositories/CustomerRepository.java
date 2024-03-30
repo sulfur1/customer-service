@@ -12,7 +12,7 @@ import java.util.Optional;
 @Transactional(readOnly = true)
 public interface CustomerRepository extends JpaRepository<Customer, Long>, JpaSpecificationExecutor<Customer> {
     List<Customer> findByName(String email);
-    Customer findBySurname(String surname);
+    List<Customer> findBySurname(String surname);
 
     @Query("""
             SELECT c FROM Customer c
@@ -46,7 +46,6 @@ public interface CustomerRepository extends JpaRepository<Customer, Long>, JpaSp
             """)
     List<Customer> findCustomersBySurname(String surname);
 
-    @Override
     @Query("""
             SELECT c FROM Customer c
             JOIN FETCH c.contactDetails

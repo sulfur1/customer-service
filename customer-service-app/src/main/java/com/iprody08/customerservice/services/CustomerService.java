@@ -6,7 +6,7 @@ import java.util.Optional;
 
 public interface CustomerService {
 
-    CustomerDTO saveCustomer(CustomerDTO customerDTO);
+    CustomerDTO addCustomer(CustomerDTO customerDTO);
 
     CustomerDTO updateCustomer(CustomerDTO customerDTO);
 
