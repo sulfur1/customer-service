@@ -2,17 +2,13 @@ package com.iprody08.customerservice.repositories;
 
 import com.iprody08.customerservice.entities.Customer;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
 
-@Transactional(readOnly = true)
-public interface CustomerRepository extends JpaRepository<Customer, Long>, JpaSpecificationExecutor<Customer> {
-    List<Customer> findByName(String email);
-    Customer findBySurname(String surname);
+
+public interface CustomerRepository extends JpaRepository<Customer, Long> {
 
     @Query("""
             SELECT c FROM Customer c
@@ -46,7 +42,6 @@ public interface CustomerRepository extends JpaRepository<Customer, Long>, JpaSp
             """)
     List<Customer> findCustomersBySurname(String surname);
 
-    @Override
     @Query("""
             SELECT c FROM Customer c
             JOIN FETCH c.contactDetails
