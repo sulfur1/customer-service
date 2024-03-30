@@ -31,7 +31,7 @@ public class CustomerRepositoryTest {
 
 
     @Test
-    public void findAllCustomers() {
+    public void testFindAllCustomers() {
 
         //given
 
@@ -77,7 +77,7 @@ public class CustomerRepositoryTest {
     }
 
     @Test
-    public void findCustomerById() {
+    public void testFindCustomerById() {
 
         //given
 
@@ -110,5 +110,85 @@ public class CustomerRepositoryTest {
 
     }
 
+    @Test
+    public void testFindCustomersByCountry() {
+
+        //given
+
+        Country country = countryRepository.findById((long) 1).get();
+
+        ContactDetails contactDetails1 = ContactDetails.builder()
+                .email("iprody08@gmail.com")
+                .telegramId("@iprody08")
+                .build();
+        ContactDetails contactDetails2 = ContactDetails.builder()
+                .email("iprody008@gmail.com")
+                .telegramId("@iprody008")
+                .build();
+
+
+        contactDetailsRepository.save(contactDetails1);
+        contactDetailsRepository.save(contactDetails2);
+
+        Customer customer1 = Customer.builder()
+                .name("Ivan")
+                .surname("Ivanov")
+                .contactDetails(contactDetails1)
+                .country(country)
+                .build();
+        Customer customer2 = Customer.builder()
+                .name("Ivan")
+                .surname("Alekseev")
+                .contactDetails(contactDetails2)
+                .country(country)
+                .build();
+        customerRepository.save(customer1);
+        customerRepository.save(customer2);
+
+        //when
+
+        List<Customer> foundCustomers = customerRepository.findCustomersByCountry(country.getCountryCode());
+
+        //then
+
+        assertFalse(foundCustomers.isEmpty());
+        assertTrue(foundCustomers.contains(customer1));
+        assertTrue(foundCustomers.contains(customer2));
+
+    }
+
+    @Test
+    public void testFindByContactDetailsEmail() {
+
+        //given
+
+        Country country = countryRepository.findById((long) 1).get();
+
+        ContactDetails contactDetails = ContactDetails.builder()
+                .email("iprody08@gmail.com")
+                .telegramId("@iprody08")
+                .build();
+
+        contactDetailsRepository.save(contactDetails);
+
+        Customer customer = Customer.builder()
+                .name("Ivan")
+                .surname("Ivanov")
+                .contactDetails(contactDetails)
+                .country(country)
+                .build();
+
+        customerRepository.save(customer);
+
+        //when
+
+        Optional<Customer> foundCustomer = customerRepository.findByContactDetailsEmail(contactDetails.getEmail());
+
+        //then
+
+        assertFalse(foundCustomer.isEmpty());
+        assertThat(foundCustomer.get()).isEqualTo(customer);
+
+    }
 
 }
