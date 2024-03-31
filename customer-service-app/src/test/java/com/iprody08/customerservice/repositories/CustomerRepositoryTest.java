@@ -35,7 +35,7 @@ public class CustomerRepositoryTest {
 
         //given
 
-        Country country = countryRepository.findById((long) 1).get();
+        Country country = countryRepository.findByCountryCode("RUS").get();
 
         ContactDetails contactDetails1 = ContactDetails.builder()
                 .email("iprody08@gmail.com")
@@ -81,7 +81,7 @@ public class CustomerRepositoryTest {
 
         //given
 
-        Country country = countryRepository.findById((long) 1).get();
+        Country country = countryRepository.findByCountryCode("RUS").get();
 
         ContactDetails contactDetails = ContactDetails.builder()
                 .email("iprody08@gmail.com")
@@ -115,7 +115,7 @@ public class CustomerRepositoryTest {
 
         //given
 
-        Country country = countryRepository.findById((long) 1).get();
+        Country country = countryRepository.findByCountryCode("RUS").get();
 
         ContactDetails contactDetails1 = ContactDetails.builder()
                 .email("iprody08@gmail.com")
@@ -162,7 +162,7 @@ public class CustomerRepositoryTest {
 
         //given
 
-        Country country = countryRepository.findById((long) 1).get();
+        Country country = countryRepository.findByCountryCode("RUS").get();
 
         ContactDetails contactDetails = ContactDetails.builder()
                 .email("iprody08@gmail.com")
