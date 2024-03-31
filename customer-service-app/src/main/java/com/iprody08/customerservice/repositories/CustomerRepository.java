@@ -64,4 +64,14 @@ public interface CustomerRepository extends JpaRepository<Customer, Long> {
         WHERE cd.email = :email
         """)
     boolean existByEmail(String email);
+
+    @Query("""
+            SELECT c
+            FROM Customer c
+            JOIN c.country country
+            WHERE
+                country.countryCode = :countryCode
+            """)
+    List<Customer> findCustomersByCountry(String countryCode);
+
 }
