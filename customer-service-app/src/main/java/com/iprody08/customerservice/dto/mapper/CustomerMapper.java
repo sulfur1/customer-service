@@ -20,8 +20,10 @@ public interface CustomerMapper {
     @Mapping(target = "countryName", source = "country.name")
     @Mapping(target = "email", source = "contactDetails.email")
     @Mapping(target = "telegramId", source = "contactDetails.telegramId")
-    @Mapping(target = "createdAt", source = "createdAt")
-    @Mapping(target = "updatedAt", source = "updatedAt")
+    @Mapping(target = "createdContactDetailsAt", source = "contactDetails.createdAt")
+    @Mapping(target = "updatedContactDetailsAt", source = "contactDetails.updatedAt")
+    @Mapping(target = "createdCustomerAt", source = "createdAt")
+    @Mapping(target = "updatedCustomerAt", source = "updatedAt")
     CustomerDTO customerToDTO(Customer customer);
 
 }

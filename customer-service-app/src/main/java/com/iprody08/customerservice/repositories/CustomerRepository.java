@@ -1,6 +1,8 @@
 package com.iprody08.customerservice.repositories;
 
 import com.iprody08.customerservice.entities.Customer;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
@@ -9,6 +11,13 @@ import java.util.Optional;
 
 
 public interface CustomerRepository extends JpaRepository<Customer, Long> {
+    @Query("""
+            SELECT c FROM Customer c
+            JOIN FETCH c.contactDetails
+            JOIN FETCH c.country
+            WHERE c.id = :id
+            """)
+    Optional<Customer> findById(long id);
 
     @Query("""
             SELECT c FROM Customer c
@@ -47,23 +56,23 @@ public interface CustomerRepository extends JpaRepository<Customer, Long> {
             JOIN FETCH c.contactDetails
             JOIN FETCH c.country
             """)
-    List<Customer> findAll();
+    Page<Customer> findAll(Pageable pageable);
 
-    @Query("""
-        SELECT CASE WHEN COUNT(c) > 0 THEN true ELSE false END
-        FROM Customer c
-        JOIN c.contactDetails cd
-        WHERE cd.telegramId = :telegramId
-        """)
-    boolean existsByTelegramId(String telegramId);
-
-    @Query("""
-        SELECT CASE WHEN COUNT(c) > 0 THEN true ELSE false END
-        FROM Customer c
-        JOIN c.contactDetails cd
-        WHERE cd.email = :email
-        """)
-    boolean existByEmail(String email);
+//    @Query("""
+//        SELECT CASE WHEN COUNT(c) > 0 THEN true ELSE false END
+//        FROM Customer c
+//        JOIN c.contactDetails cd
+//        WHERE cd.telegramId = :telegramId
+//        """)
+//    boolean existsByTelegramId(String telegramId);
+//
+//    @Query("""
+//        SELECT CASE WHEN COUNT(c) > 0 THEN true ELSE false END
+//        FROM Customer c
+//        JOIN c.contactDetails cd
+//        WHERE cd.email = :email
+//        """)
+//    boolean existByEmail(String email);
 
     @Query("""
             SELECT c
