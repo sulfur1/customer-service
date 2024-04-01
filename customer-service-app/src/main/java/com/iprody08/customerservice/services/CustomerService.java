@@ -24,4 +24,5 @@ public interface CustomerService {
 
     List<CustomerDTO> findCustomerByName(String name);
     List<CustomerDTO> findCustomerBySurname(String surname);
+    List<CustomerDTO> findCustomersByCountry(String country);
 }

@@ -138,4 +138,11 @@ public class CustomerServiceImpl implements CustomerService {
                 .collect(Collectors.toList());
     }
 
+    @Override
+    public List<CustomerDTO> findCustomersByCountry(String country) {
+        return customerRepository.findCustomersByCountry(country).stream()
+                .map(customerMapper::customerToDTO)
+                .collect(Collectors.toList());
+    }
+
 }
