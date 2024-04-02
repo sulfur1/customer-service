@@ -58,22 +58,6 @@ public interface CustomerRepository extends JpaRepository<Customer, Long> {
             """)
     Page<Customer> findAll(Pageable pageable);
 
-//    @Query("""
-//        SELECT CASE WHEN COUNT(c) > 0 THEN true ELSE false END
-//        FROM Customer c
-//        JOIN c.contactDetails cd
-//        WHERE cd.telegramId = :telegramId
-//        """)
-//    boolean existsByTelegramId(String telegramId);
-//
-//    @Query("""
-//        SELECT CASE WHEN COUNT(c) > 0 THEN true ELSE false END
-//        FROM Customer c
-//        JOIN c.contactDetails cd
-//        WHERE cd.email = :email
-//        """)
-//    boolean existByEmail(String email);
-
     @Query("""
             SELECT c
             FROM Customer c

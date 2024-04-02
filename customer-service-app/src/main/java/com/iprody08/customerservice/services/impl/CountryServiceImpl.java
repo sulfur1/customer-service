@@ -6,6 +6,7 @@ import com.iprody08.customerservice.repositories.CountryRepository;
 import com.iprody08.customerservice.services.CountryService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
@@ -31,7 +32,7 @@ public class CountryServiceImpl implements CountryService {
     }
 
     @Override
-    public List<CountryDTO> findAll() {
+    public List<CountryDTO> findAll(Pageable pageable) {
         return countryRepository.findAll().stream() //todo add factory validator
                 .map(countryMapper::countryToDTO)
                 .collect(Collectors.toList());

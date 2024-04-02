@@ -55,11 +55,6 @@ public class CustomerServiceImpl implements CustomerService {
             throw new EntityExistsException(String.format(ERROR_CUSTOMER_EXISTS_MESSAGE, dto.getId()));
         }
 
-//        if (customerRepository.existsByTelegramId(dto.getTelegramId())
-//                || customerRepository.existByEmail(dto.getEmail())) {
-//            log.error(String.format(ERROR_CUSTOMER_EXISTS_MESSAGE, dto.getTelegramId()));
-//            throw new EntityExistsException(String.format(ERROR_CUSTOMER_EXISTS_MESSAGE, dto.getTelegramId()));
-//        }
         if (contactDetailsRepository.findByTelegramId(dto.getTelegramId()).isPresent()) {
             log.error(String.format(ERROR_CUSTOMER_EXISTS_MESSAGE, dto.getTelegramId()));
             throw new EntityExistsException(String.format(ERROR_CUSTOMER_EXISTS_MESSAGE, dto.getTelegramId()));
@@ -130,16 +125,6 @@ public class CustomerServiceImpl implements CustomerService {
                 .collect(Collectors.toList());
     }
 
-//    }@Override
-//    public Page<CustomerDTO> findAllCustomers(CustomerListParams customerListParams) {
-//        return customerRepository.findAll(
-//                PageRequest.of(
-//                        customerListParams.getPage(), //default on controller level with not null expectation;
-//                        customerListParams.getSize(),
-//                        Sort.by(customerListParams.getSortField())))
-//                .map(customerMapper::customerToDTO);
-//    }
-
     @Override
     public Optional<CustomerDTO> findCustomerByEmail(String email) {
         return customerRepository.findByContactDetailsEmail(email)
@@ -153,21 +138,21 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public List<CustomerDTO> findCustomerByName(String name) {
+    public List<CustomerDTO> findCustomerByName(String name, Pageable pageable) {
         return customerRepository.findCustomersByName(name).stream()
                 .map(customerMapper::customerToDTO)
                 .collect(Collectors.toList());
     }
 
     @Override
-    public List<CustomerDTO> findCustomerBySurname(String surname) {
+    public List<CustomerDTO> findCustomerBySurname(String surname, Pageable pageable) {
         return customerRepository.findCustomersBySurname(surname).stream()
                 .map(customerMapper::customerToDTO)
                 .collect(Collectors.toList());
     }
 
     @Override
-    public List<CustomerDTO> findCustomersByCountry(String country) {
+    public List<CustomerDTO> findCustomersByCountry(String country, Pageable pageable) {
         return customerRepository.findCustomersByCountry(country).stream()
                 .map(customerMapper::customerToDTO)
                 .collect(Collectors.toList());
