@@ -1,6 +1,8 @@
 package com.iprody08.customerservice.services;
 
 import com.iprody08.customerservice.dto.ContactDetailsDTO;
+import org.springframework.data.domain.Pageable;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -13,6 +15,6 @@ public interface ContactDetailsService {
 
     void delete(long id);
 
-    List<ContactDetailsDTO> findAll();
+    List<ContactDetailsDTO> findAll(Pageable pageable);
 
 }

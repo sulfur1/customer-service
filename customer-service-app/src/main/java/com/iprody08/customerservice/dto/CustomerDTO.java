@@ -27,8 +27,12 @@ public class CustomerDTO {
 
     private String telegramId;
 
-    private Instant createdAt;
+    private Instant createdCustomerAt;
 
-    private Instant updatedAt;
+    private Instant updatedCustomerAt;
+
+    private Instant createdContactDetailsAt;
+
+    private Instant updatedContactDetailsAt;
 
 }

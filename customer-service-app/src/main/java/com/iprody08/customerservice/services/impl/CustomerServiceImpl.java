@@ -1,10 +1,11 @@
 package com.iprody08.customerservice.services.impl;
 
 import com.iprody08.customerservice.dto.CustomerDTO;
-import com.iprody08.customerservice.dto.CustomerListParams;
 import com.iprody08.customerservice.dto.mapper.CustomerMapper;
+import com.iprody08.customerservice.entities.ContactDetails;
 import com.iprody08.customerservice.entities.Country;
 import com.iprody08.customerservice.entities.Customer;
+import com.iprody08.customerservice.repositories.ContactDetailsRepository;
 import com.iprody08.customerservice.repositories.CountryRepository;
 import com.iprody08.customerservice.repositories.CustomerRepository;
 import com.iprody08.customerservice.services.CustomerService;
@@ -12,12 +13,11 @@ import jakarta.persistence.EntityExistsException;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.Instant;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -32,14 +32,18 @@ public class CustomerServiceImpl implements CustomerService {
 
     private final CustomerRepository customerRepository;
     private final CountryRepository countryRepository;
+    private final ContactDetailsRepository contactDetailsRepository;
     private final CustomerMapper customerMapper;
 
     @Autowired
     public CustomerServiceImpl(CustomerRepository customerRepository,
                                CountryRepository countryRepository,
-                               CustomerMapper customerMapper) {
+                               ContactDetailsRepository contactDetailsRepository,
+                               CustomerMapper customerMapper
+                               ) {
         this.customerRepository = customerRepository;
         this.countryRepository = countryRepository;
+        this.contactDetailsRepository = contactDetailsRepository;
         this.customerMapper = customerMapper;
     }
 
@@ -51,10 +55,14 @@ public class CustomerServiceImpl implements CustomerService {
             throw new EntityExistsException(String.format(ERROR_CUSTOMER_EXISTS_MESSAGE, dto.getId()));
         }
 
-        if (customerRepository.existsByTelegramId(dto.getTelegramId())
-                || customerRepository.existByEmail(dto.getEmail())) {
+        if (contactDetailsRepository.findByTelegramId(dto.getTelegramId()).isPresent()) {
             log.error(String.format(ERROR_CUSTOMER_EXISTS_MESSAGE, dto.getTelegramId()));
             throw new EntityExistsException(String.format(ERROR_CUSTOMER_EXISTS_MESSAGE, dto.getTelegramId()));
+        }
+
+        if (contactDetailsRepository.findByEmail(dto.getEmail()).isPresent()) {
+            log.error(String.format(ERROR_CUSTOMER_EXISTS_MESSAGE, dto.getEmail()));
+            throw new EntityExistsException(String.format(ERROR_CUSTOMER_EXISTS_MESSAGE, dto.getEmail()));
         }
 
         if (!countryRepository.existsById(dto.getCountryId())) {
@@ -63,6 +71,8 @@ public class CustomerServiceImpl implements CustomerService {
         }
 
         Customer customer = customerMapper.dtoToCustomer(dto);
+        ContactDetails contactDetails = customer.getContactDetails();
+        contactDetailsRepository.save(contactDetails);
         Customer savedCustomer = customerRepository.save(customer);
         return customerMapper.customerToDTO(savedCustomer);
     }
@@ -80,12 +90,18 @@ public class CustomerServiceImpl implements CustomerService {
                                         String.format(ERROR_COUNTRY_NOT_FOUND_MESSAGE, dto.getCountryId())));
                         customer.setCountry(country);
                     }
+                    if (contactDetailsRepository.findByTelegramId(dto.getTelegramId()).isEmpty()) {
+                        customer.getContactDetails().setTelegramId(dto.getTelegramId());
+                    }
+                    if (contactDetailsRepository.findByEmail(dto.getEmail()).isEmpty()) {
+                        customer.getContactDetails().setEmail(dto.getEmail());
+                    }
 
-                    customer.getContactDetails().setEmail(dto.getEmail());
-                    customer.getContactDetails().setTelegramId(dto.getTelegramId());
+                    customer.getContactDetails().setUpdatedAt(Instant.now());
+                    customer.setUpdatedAt(Instant.now());
 
-                    customerRepository.save(customer);
-                    return customerMapper.customerToDTO(customerRepository.save(customer));
+                    Customer savedCustomer = customerRepository.save(customer);
+                    return customerMapper.customerToDTO(savedCustomer);
                 })
                 .orElseThrow(() -> new EntityNotFoundException(
                         String.format(ERROR_CUSTOMER_NOT_FOUND_MESSAGE, dto.getId())));
@@ -103,13 +119,10 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public Page<CustomerDTO> findAllCustomers(CustomerListParams customerListParams) {
-        return customerRepository.findAll(
-                PageRequest.of(
-                        customerListParams.getPage(), //default on controller level with not null expectation;
-                        customerListParams.getSize(),
-                        Sort.by(customerListParams.getSortField())))
-                .map(customerMapper::customerToDTO);
+    public List<CustomerDTO> findAllCustomers(Pageable pageable) {
+        return customerRepository.findAll(pageable).stream()
+                .map(customerMapper::customerToDTO)
+                .collect(Collectors.toList());
     }
 
     @Override
@@ -125,21 +138,21 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public List<CustomerDTO> findCustomerByName(String name) {
+    public List<CustomerDTO> findCustomerByName(String name, Pageable pageable) {
         return customerRepository.findCustomersByName(name).stream()
                 .map(customerMapper::customerToDTO)
                 .collect(Collectors.toList());
     }
 
     @Override
-    public List<CustomerDTO> findCustomerBySurname(String surname) {
+    public List<CustomerDTO> findCustomerBySurname(String surname, Pageable pageable) {
         return customerRepository.findCustomersBySurname(surname).stream()
                 .map(customerMapper::customerToDTO)
                 .collect(Collectors.toList());
     }
 
     @Override
-    public List<CustomerDTO> findCustomersByCountry(String country) {
+    public List<CustomerDTO> findCustomersByCountry(String country, Pageable pageable) {
         return customerRepository.findCustomersByCountry(country).stream()
                 .map(customerMapper::customerToDTO)
                 .collect(Collectors.toList());

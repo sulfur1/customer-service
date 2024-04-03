@@ -9,8 +9,10 @@ import jakarta.persistence.EntityExistsException;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.time.Instant;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -45,6 +47,7 @@ public class ContactDetailsServiceImpl implements ContactDetailsService {
                 .map(contactDetails -> {
                     contactDetails.setEmail(dto.getEmail());
                     contactDetails.setTelegramId(dto.getTelegramId());
+                    contactDetails.setUpdatedAt(Instant.now());
                     repository.save(contactDetails);
                     return mapper.entityToDTO(contactDetails);
                 })
@@ -64,7 +67,7 @@ public class ContactDetailsServiceImpl implements ContactDetailsService {
     }
 
     @Override
-    public List<ContactDetailsDTO> findAll() {
+    public List<ContactDetailsDTO> findAll(Pageable pageable) {
         return repository.findAll().stream()
                 .map(mapper::entityToDTO)
                 .collect(Collectors.toList());
