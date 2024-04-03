@@ -27,4 +27,5 @@ public interface CustomerService {
     List<CustomerDTO> findCustomerBySurname(String surname, Pageable pageable);
 
     List<CustomerDTO> findCustomersByCountry(String country, Pageable pageable);
+
 }
