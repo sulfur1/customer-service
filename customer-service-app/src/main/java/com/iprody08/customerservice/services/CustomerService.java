@@ -1,6 +1,6 @@
 package com.iprody08.customerservice.services;
 
-import com.iprody08.customerservice.dto.CustomerDTO;
+import com.iprody08.customerservice.dto.CustomerDto;
 import org.springframework.data.domain.Pageable;
 
 import java.util.List;
@@ -8,24 +8,24 @@ import java.util.Optional;
 
 public interface CustomerService {
 
-    CustomerDTO addCustomer(CustomerDTO customerDTO);
+    CustomerDto addCustomer(CustomerDto customerDTO);
 
-    CustomerDTO updateCustomer(CustomerDTO customerDTO);
+    CustomerDto updateCustomer(CustomerDto customerDTO);
 
-    Optional<CustomerDTO> findCustomerById(long id);
+    Optional<CustomerDto> findCustomerById(long id);
 
     void deleteCustomer(long id);
 
-    List<CustomerDTO> findAllCustomers(Pageable pageable);
+    List<CustomerDto> findAllCustomers(Pageable pageable);
 
-    Optional<CustomerDTO> findCustomerByEmail(String email);
+    Optional<CustomerDto> findCustomerByEmail(String email);
 
-    Optional<CustomerDTO> findCustomerByTelegramId(String telegramId);
+    Optional<CustomerDto> findCustomerByTelegramId(String telegramId);
 
-    List<CustomerDTO> findCustomerByName(String name, Pageable pageable);
+    List<CustomerDto> findCustomerByName(String name, Pageable pageable);
 
-    List<CustomerDTO> findCustomerBySurname(String surname, Pageable pageable);
+    List<CustomerDto> findCustomerBySurname(String surname, Pageable pageable);
 
-    List<CustomerDTO> findCustomersByCountry(String country, Pageable pageable);
+    List<CustomerDto> findCustomersByCountry(String country, Pageable pageable);
 
 }

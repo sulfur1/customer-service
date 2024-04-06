@@ -4,21 +4,22 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.ToString;
+
 import java.time.Instant;
 
-@Setter
 @Getter
-@ToString
-@AllArgsConstructor
+@Setter
 @NoArgsConstructor
-public class CountryDTO {
+@AllArgsConstructor
+public class ContactDetailsDto {
 
     private Long id;
 
-    private String name;
+    private Long customerId;
 
-    private String countryCode;
+    private String email;
+
+    private String telegramId;
 
     private Instant createdAt;
 
