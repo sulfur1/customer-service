@@ -1,6 +1,6 @@
 package com.iprody08.customerservice.services.impl;
 
-import com.iprody08.customerservice.dto.ContactDetailsDTO;
+import com.iprody08.customerservice.dto.ContactDetailsDto;
 import com.iprody08.customerservice.dto.mapper.ContactDetailsMapper;
 import com.iprody08.customerservice.entities.ContactDetails;
 import com.iprody08.customerservice.repositories.ContactDetailsRepository;
@@ -32,7 +32,7 @@ public class ContactDetailsServiceImpl implements ContactDetailsService {
     }
 
     @Override
-    public ContactDetailsDTO save(ContactDetailsDTO dto) {
+    public ContactDetailsDto save(ContactDetailsDto dto) {
         if (dto.getId() != null && repository.existsById(dto.getId())) { //todo replace with factory validator
             log.error(String.format(ERROR_EXISTS_MESSAGE, dto.getId()));
             throw new EntityExistsException(String.format(ERROR_EXISTS_MESSAGE, dto.getId()));
@@ -42,7 +42,7 @@ public class ContactDetailsServiceImpl implements ContactDetailsService {
     }
 
     @Override
-    public ContactDetailsDTO update(ContactDetailsDTO dto) {
+    public ContactDetailsDto update(ContactDetailsDto dto) {
         return repository.findById(dto.getId())
                 .map(contactDetails -> {
                     contactDetails.setEmail(dto.getEmail());
@@ -55,7 +55,7 @@ public class ContactDetailsServiceImpl implements ContactDetailsService {
     }
 
     @Override
-    public Optional<ContactDetailsDTO> findContactsById(long id) {
+    public Optional<ContactDetailsDto> findContactsById(long id) {
         return repository.findById(id) //todo add factory validator
                 .map(mapper::entityToDTO);
     }
@@ -67,7 +67,7 @@ public class ContactDetailsServiceImpl implements ContactDetailsService {
     }
 
     @Override
-    public List<ContactDetailsDTO> findAll(Pageable pageable) {
+    public List<ContactDetailsDto> findAll(Pageable pageable) {
         return repository.findAll().stream()
                 .map(mapper::entityToDTO)
                 .collect(Collectors.toList());

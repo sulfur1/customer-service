@@ -1,6 +1,6 @@
 package com.iprody08.customerservice.dto.mapper;
 
-import com.iprody08.customerservice.dto.CustomerDTO;
+import com.iprody08.customerservice.dto.CustomerDto;
 import com.iprody08.customerservice.entities.Customer;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -14,7 +14,7 @@ public interface CustomerMapper {
     @Mapping(target = "country.id", source = "countryId")
     @Mapping(target = "contactDetails.email", source = "email")
     @Mapping(target = "contactDetails.telegramId", source = "telegramId")
-    Customer dtoToCustomer(CustomerDTO customerDTO);
+    Customer dtoToCustomer(CustomerDto customerDTO);
 
     @Mapping(target = "countryId", source = "country.id")
     @Mapping(target = "countryName", source = "country.name")
@@ -24,6 +24,6 @@ public interface CustomerMapper {
     @Mapping(target = "updatedContactDetailsAt", source = "contactDetails.updatedAt")
     @Mapping(target = "createdCustomerAt", source = "createdAt")
     @Mapping(target = "updatedCustomerAt", source = "updatedAt")
-    CustomerDTO customerToDTO(Customer customer);
+    CustomerDto customerToDTO(Customer customer);
 
 }
