@@ -10,5 +10,6 @@
     <include file="01-changeset-contact-details-table.xml" relativeToChangelogFile="true" />
     <include file="01-changeset-countries-table.xml" relativeToChangelogFile="true" />
     <include file="01-changeset-customers-table.xml" relativeToChangelogFile="true" />
+    <include file="02-changeset-contact-details-indexes.xml" relativeToChangelogFile="true" />
 
 </databaseChangeLog>

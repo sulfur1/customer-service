@@ -1,6 +1,6 @@
 package com.iprody08.customerservice.services.impl;
 
-import com.iprody08.customerservice.dto.ContactDetailsDTO;
+import com.iprody08.customerservice.dto.ContactDetailsDto;
 import com.iprody08.customerservice.dto.mapper.ContactDetailsMapper;
 import com.iprody08.customerservice.entities.ContactDetails;
 import com.iprody08.customerservice.repositories.ContactDetailsRepository;
@@ -9,8 +9,10 @@ import jakarta.persistence.EntityExistsException;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.time.Instant;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -30,31 +32,34 @@ public class ContactDetailsServiceImpl implements ContactDetailsService {
     }
 
     @Override
-    public ContactDetailsDTO save(ContactDetailsDTO dto) {
-        if (dto.getId() != null && repository.existsById(dto.getId())) { //todo replace with factory validator
-            log.error(String.format(ERROR_EXISTS_MESSAGE, dto.getId()));
-            throw new EntityExistsException(String.format(ERROR_EXISTS_MESSAGE, dto.getId()));
+    public ContactDetailsDto save(ContactDetailsDto contactDetailsDto) {
+        if (contactDetailsDto.getId() != null && repository.existsById(contactDetailsDto.getId())) {
+            //todo replace with factory validator
+            log.error(String.format(ERROR_EXISTS_MESSAGE, contactDetailsDto.getId()));
+            throw new EntityExistsException(String.format(ERROR_EXISTS_MESSAGE, contactDetailsDto.getId()));
         }
-        ContactDetails entity = mapper.dtoToEntity(dto);
-        return mapper.entityToDTO(repository.save(entity));
+        ContactDetails entity = mapper.dtoToEntity(contactDetailsDto);
+        return mapper.entityToDto(repository.save(entity));
     }
 
     @Override
-    public ContactDetailsDTO update(ContactDetailsDTO dto) {
-        return repository.findById(dto.getId())
+    public ContactDetailsDto update(ContactDetailsDto contactDetailsDto) {
+        return repository.findById(contactDetailsDto.getId())
                 .map(contactDetails -> {
-                    contactDetails.setEmail(dto.getEmail());
-                    contactDetails.setTelegramId(dto.getTelegramId());
+                    contactDetails.setEmail(contactDetailsDto.getEmail());
+                    contactDetails.setTelegramId(contactDetailsDto.getTelegramId());
+                    contactDetails.setUpdatedAt(Instant.now());
                     repository.save(contactDetails);
-                    return mapper.entityToDTO(contactDetails);
+                    return mapper.entityToDto(contactDetails);
                 })
-                .orElseThrow(() -> new EntityNotFoundException(String.format(ERROR_NOT_FOUND_MESSAGE, dto.getId())));
+                .orElseThrow(() -> new EntityNotFoundException(
+                        String.format(ERROR_NOT_FOUND_MESSAGE, contactDetailsDto.getId())));
     }
 
     @Override
-    public Optional<ContactDetailsDTO> findContactsById(long id) {
+    public Optional<ContactDetailsDto> findContactsById(long id) {
         return repository.findById(id) //todo add factory validator
-                .map(mapper::entityToDTO);
+                .map(mapper::entityToDto);
     }
 
     @Override
@@ -64,9 +69,9 @@ public class ContactDetailsServiceImpl implements ContactDetailsService {
     }
 
     @Override
-    public List<ContactDetailsDTO> findAll() {
+    public List<ContactDetailsDto> findAll(Pageable pageable) {
         return repository.findAll().stream()
-                .map(mapper::entityToDTO)
+                .map(mapper::entityToDto)
                 .collect(Collectors.toList());
     }
 }

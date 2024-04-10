@@ -11,7 +11,7 @@ import java.time.Instant;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class CustomerDTO {
+public class CustomerDto {
 
     private Long id;
 
@@ -27,8 +27,12 @@ public class CustomerDTO {
 
     private String telegramId;
 
-    private Instant createdAt;
+    private Instant createdCustomerAt;
 
-    private Instant updatedAt;
+    private Instant updatedCustomerAt;
+
+    private Instant createdContactDetailsAt;
+
+    private Instant updatedContactDetailsAt;
 
 }

@@ -1,5 +1,6 @@
 package com.iprody08.customerservice.entities;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -46,7 +47,7 @@ public class Customer {
     @JoinColumn(name = "country_id", nullable = false)
     private Country country;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "contact_details_id", nullable = false)
     private ContactDetails contactDetails;
 
