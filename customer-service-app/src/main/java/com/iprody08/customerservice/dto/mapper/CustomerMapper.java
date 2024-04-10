@@ -14,7 +14,7 @@ public interface CustomerMapper {
     @Mapping(target = "country.id", source = "countryId")
     @Mapping(target = "contactDetails.email", source = "email")
     @Mapping(target = "contactDetails.telegramId", source = "telegramId")
-    Customer dtoToCustomer(CustomerDto customerDTO);
+    Customer dtoToCustomer(CustomerDto customerDto);
 
     @Mapping(target = "countryId", source = "country.id")
     @Mapping(target = "countryName", source = "country.name")
@@ -24,6 +24,6 @@ public interface CustomerMapper {
     @Mapping(target = "updatedContactDetailsAt", source = "contactDetails.updatedAt")
     @Mapping(target = "createdCustomerAt", source = "createdAt")
     @Mapping(target = "updatedCustomerAt", source = "updatedAt")
-    CustomerDto customerToDTO(Customer customer);
+    CustomerDto customerToDto(Customer customer);
 
 }
