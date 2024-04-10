@@ -13,6 +13,7 @@ import jakarta.persistence.EntityExistsException;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -120,11 +121,11 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public List<CustomerDto> findAllCustomers(Pageable pageable) {
-        return customerRepository.findAll(pageable).stream()
-                .map(customerMapper::customerToDto)
-                .collect(Collectors.toList());
+    public Page<CustomerDto> findAllCustomers(Pageable pageable) {
+        Page<Customer> customersPage = customerRepository.findAll(pageable);
+        return customersPage.map(customerMapper::customerToDto);
     }
+
 
     @Override
     public Optional<CustomerDto> findCustomerByEmail(String email) {
