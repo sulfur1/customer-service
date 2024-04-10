@@ -11,8 +11,8 @@ public interface CountryMapper {
     @Mapping(target = "createdAt", ignore = true)
     @Mapping(target = "updatedAt", ignore = true)
     @Mapping(target = "id", ignore = true)
-    Country dtoToCountry(CountryDto countryDTO);
+    Country dtoToCountry(CountryDto countryDto);
 
-    CountryDto countryToDTO(Country country);
+    CountryDto countryToDto(Country country);
 
 }

@@ -8,9 +8,9 @@ import java.util.Optional;
 
 public interface CustomerService {
 
-    CustomerDto addCustomer(CustomerDto customerDTO);
+    CustomerDto addCustomer(CustomerDto customerDto);
 
-    CustomerDto updateCustomer(CustomerDto customerDTO);
+    CustomerDto updateCustomer(CustomerDto customerDto);
 
     Optional<CustomerDto> findCustomerById(long id);
 

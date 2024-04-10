@@ -8,9 +8,9 @@ import java.util.Optional;
 
 public interface ContactDetailsService {
 
-    ContactDetailsDto save(ContactDetailsDto contactDetailsDTO);
+    ContactDetailsDto save(ContactDetailsDto contactDetailsDto);
 
-    ContactDetailsDto update(ContactDetailsDto contactDetailsDTO);
+    ContactDetailsDto update(ContactDetailsDto contactDetailsDto);
     Optional<ContactDetailsDto> findContactsById(long id);
 
     void delete(long id);

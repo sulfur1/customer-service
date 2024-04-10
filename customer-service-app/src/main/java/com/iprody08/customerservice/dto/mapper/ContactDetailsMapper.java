@@ -11,10 +11,10 @@ public interface ContactDetailsMapper {
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "createdAt", ignore = true)
     @Mapping(target = "updatedAt", ignore = true)
-    ContactDetails dtoToEntity(ContactDetailsDto contactDetailsDTO);
+    ContactDetails dtoToEntity(ContactDetailsDto contactDetailsDto);
 
 
     @Mapping(target = "customerId", source = "customer.id")
-    ContactDetailsDto entityToDTO(ContactDetails contactDetails);
+    ContactDetailsDto entityToDto(ContactDetails contactDetails);
 
 }
