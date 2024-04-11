@@ -11,18 +11,28 @@ import java.time.Instant;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class ContactDetailsDTO {
+public class CustomerDto {
 
     private Long id;
 
-    private Long customerId;
+    private String name;
+
+    private String surname;
+
+    private Long countryId;
+
+    private String countryName;
 
     private String email;
 
     private String telegramId;
 
-    private Instant createdAt;
+    private Instant createdCustomerAt;
 
-    private Instant updatedAt;
+    private Instant updatedCustomerAt;
+
+    private Instant createdContactDetailsAt;
+
+    private Instant updatedContactDetailsAt;
 
 }

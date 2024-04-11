@@ -1,6 +1,6 @@
 package com.iprody08.customerservice.dto.mapper;
 
-import com.iprody08.customerservice.dto.CountryDTO;
+import com.iprody08.customerservice.dto.CountryDto;
 import com.iprody08.customerservice.entities.Country;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -11,8 +11,8 @@ public interface CountryMapper {
     @Mapping(target = "createdAt", ignore = true)
     @Mapping(target = "updatedAt", ignore = true)
     @Mapping(target = "id", ignore = true)
-    Country dtoToCountry(CountryDTO countryDTO);
+    Country dtoToCountry(CountryDto countryDto);
 
-    CountryDTO countryToDTO(Country country);
+    CountryDto countryToDto(Country country);
 
 }
