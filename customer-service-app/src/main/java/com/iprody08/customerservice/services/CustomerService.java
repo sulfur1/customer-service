@@ -1,6 +1,7 @@
 package com.iprody08.customerservice.services;
 
 import com.iprody08.customerservice.dto.CustomerDto;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 import java.util.List;
@@ -16,7 +17,7 @@ public interface CustomerService {
 
     void deleteCustomer(long id);
 
-    List<CustomerDto> findAllCustomers(Pageable pageable);
+    Page<CustomerDto> findAllCustomers(Pageable pageable);
 
     Optional<CustomerDto> findCustomerByEmail(String email);
 
