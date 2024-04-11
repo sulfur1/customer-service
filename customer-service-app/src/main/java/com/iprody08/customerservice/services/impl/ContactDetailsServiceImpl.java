@@ -15,7 +15,6 @@ import org.springframework.stereotype.Service;
 import java.time.Instant;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 @Slf4j
@@ -57,20 +56,19 @@ public class ContactDetailsServiceImpl implements ContactDetailsService {
 
     @Override
     public Optional<ContactDetailsDto> findContactsById(long id) {
-        return repository.findById(id) //todo add factory validator
+        return repository.findById(id)
                 .map(mapper::entityToDto);
     }
 
     @Override
 
     public void delete(long id) {
-        repository.deleteById(id); //todo add factory validator
+        repository.deleteById(id);
     }
 
     @Override
     public List<ContactDetailsDto> findAll(Pageable pageable) {
         return repository.findAll().stream()
-                .map(mapper::entityToDto)
-                .collect(Collectors.toList());
+                .map(mapper::entityToDto).toList();
     }
 }

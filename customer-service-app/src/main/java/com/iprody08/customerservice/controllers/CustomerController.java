@@ -7,7 +7,6 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -23,6 +22,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @RestController
 @RequestMapping(value = "/api/customers", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -64,8 +64,8 @@ public class CustomerController {
             @ApiResponse(responseCode = "200", description = "Customers found")
     })
     @GetMapping
-    public ResponseEntity<Page<CustomerDto>> getAllCustomers(Pageable pageable) {
-        Page<CustomerDto> customers = customerService.findAllCustomers(pageable);
+    public ResponseEntity<List<CustomerDto>> getAllCustomers(Pageable pageable) {
+        List<CustomerDto> customers = customerService.findAllCustomers(pageable);
         return ResponseEntity.ok(customers);
     }
 

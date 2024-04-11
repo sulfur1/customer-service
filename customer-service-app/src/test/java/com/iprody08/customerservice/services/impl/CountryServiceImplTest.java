@@ -3,7 +3,6 @@ package com.iprody08.customerservice.services.impl;
 import com.iprody08.customerservice.dto.CountryDto;
 import com.iprody08.customerservice.dto.mapper.CountryMapper;
 import com.iprody08.customerservice.entities.Country;
-import com.iprody08.customerservice.for_tests.CustomerServiceConstants;
 import com.iprody08.customerservice.repositories.CountryRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -17,6 +16,8 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.util.List;
 import java.util.Optional;
 
+import static com.iprody08.customerservice.for_tests.CustomerServiceConstants.LV;
+import static com.iprody08.customerservice.for_tests.CustomerServiceConstants.US;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -40,26 +41,26 @@ class CountryServiceImplTest {
 
     @BeforeEach
     void setUp() {
-        id = CustomerServiceConstants.US.getId();
-        country = CustomerServiceConstants.US;
+        id = US.getId();
+        country = US;
     }
 
-        @Test
-        void testCountryServiceImplFindCountryByIdReturnCountryDto() {
-            // given
-            when(countryRepository.findById(id)).thenReturn(Optional.of(country));
+    @Test
+    void countryServiceImplFindCountryById() {
+        // given
+        when(countryRepository.findById(id)).thenReturn(Optional.of(country));
 
-            // when
-            Optional<CountryDto> result = service.findCountryById(id);
+        // when
+        Optional<CountryDto> result = service.findCountryById(id);
 
-            // then
-            assertTrue(result.isPresent(), "CountryDto should be present");
-            assertEquals(country.getCountryCode(), result.get().getCountryCode());
-            assertEquals(country.getName(), result.get().getName());
-        }
+        // then
+        assertTrue(result.isPresent(), "CountryDto should be present");
+        assertEquals(country.getCountryCode(), result.get().getCountryCode());
+        assertEquals(country.getName(), result.get().getName());
+    }
 
     @Test
-    public void testCountryServiceImplFindCountryByIdWhenIdDoesNotExist() {
+    public void countryServiceImplFindCountryByIdWhenIdDoesNotExist() {
         // given
         when(countryRepository.findById(id)).thenReturn(Optional.empty());
 
@@ -71,11 +72,9 @@ class CountryServiceImplTest {
     }
 
     @Test
-    public void testCountryServiceImplFindAll() {
+    public void countryServiceImplFindAll() {
         // given
-        List<Country> countries = List.of(
-                CustomerServiceConstants.US,
-                CustomerServiceConstants.LV);
+        List<Country> countries = List.of(US, LV);
         when(countryRepository.findAll()).thenReturn(countries);
 
         // when
