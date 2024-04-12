@@ -34,7 +34,6 @@ public class ContactDetailsServiceImpl implements ContactDetailsService {
     @Override
     public ContactDetailsDto save(ContactDetailsDto contactDetailsDto) {
         if (contactDetailsDto.getId() != null && repository.existsById(contactDetailsDto.getId())) {
-            //todo replace with factory validator
             log.error(String.format(ERROR_EXISTS_MESSAGE, contactDetailsDto.getId()));
             throw new EntityExistsException(String.format(ERROR_EXISTS_MESSAGE, contactDetailsDto.getId()));
         }
