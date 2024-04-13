@@ -3,7 +3,6 @@ package com.iprody08.customerservice.services.impl;
 import com.iprody08.customerservice.dto.ContactDetailsDto;
 import com.iprody08.customerservice.dto.mapper.ContactDetailsMapper;
 import com.iprody08.customerservice.entities.ContactDetails;
-import com.iprody08.customerservice.for_tests.CustomerServiceConstants;
 import com.iprody08.customerservice.repositories.ContactDetailsRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -18,6 +17,10 @@ import org.springframework.data.domain.Pageable;
 import java.util.List;
 import java.util.Optional;
 
+import static com.iprody08.customerservice.for_tests.CustomerServiceConstants.CONTACT_DETAILS_FIRST;
+import static com.iprody08.customerservice.for_tests.CustomerServiceConstants.CONTACT_DETAILS_SECOND;
+import static com.iprody08.customerservice.for_tests.CustomerServiceConstants.FIRST_CONTACT_DETAILS_DTO;
+import static com.iprody08.customerservice.for_tests.CustomerServiceConstants.SECOND_CONTACT_DETAILS_DTO;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
@@ -33,6 +36,8 @@ class ContactDetailsServiceImplTest {
 
     private ContactDetailsDto contactDetailsDto;
 
+    private long contactDetailsId;
+
     @Mock
     private ContactDetailsRepository contactDetailsRepository;
 
@@ -45,19 +50,21 @@ class ContactDetailsServiceImplTest {
     @BeforeEach
     void setUp() {
 
-        contactDetails = CustomerServiceConstants.CONTACT_DETAILS_FIRST;
+        contactDetails = CONTACT_DETAILS_FIRST;
 
-        contactDetailsDto = CustomerServiceConstants.FIRST_CONTACT_DETAILS_DTO;
+        contactDetailsDto = FIRST_CONTACT_DETAILS_DTO;
+
+        contactDetailsId = contactDetails.getId();
     }
 
 
     @Test
-    void testContactDetailsServiceImplFindContactDetailsById() {
+    void contactDetailsServiceImplFindContactDetailsById() {
         // given
-        when(contactDetailsRepository.findById(contactDetails.getId())).thenReturn(Optional.of(contactDetails));
+        when(contactDetailsRepository.findById(contactDetailsId)).thenReturn(Optional.of(contactDetails));
 
         // when
-        Optional<ContactDetailsDto> result = service.findContactsById(contactDetails.getId());
+        Optional<ContactDetailsDto> result = service.findContactsById(contactDetailsId);
 
         // then
         assertTrue(result.isPresent(), "ContactDetailsDto should be present");
@@ -66,27 +73,27 @@ class ContactDetailsServiceImplTest {
     }
 
     @Test
-    public void testContactDetailsServiceImplFindContactDetailsByIdWhenIdDoesNotExist() {
+    public void contactDetailsServiceImplFindContactDetailsByIdWhenIdDoesNotExist() {
         // given
-        when(contactDetailsRepository.findById(contactDetails.getId())).thenReturn(Optional.empty());
+        when(contactDetailsRepository.findById(contactDetailsId)).thenReturn(Optional.empty());
 
         // when
-        Optional<ContactDetailsDto> result = service.findContactsById(contactDetails.getId());
+        Optional<ContactDetailsDto> result = service.findContactsById(contactDetailsId);
 
         // then
         assertTrue(result.isEmpty());
     }
 
     @Test
-    void testContactDetailsServiceImplFindAllContactDetails() {
+    void contactDetailsServiceImplFindAllContactDetails() {
         // given
         List<ContactDetails> contactDetailsList = List.of(
-                CustomerServiceConstants.CONTACT_DETAILS_FIRST,
-                CustomerServiceConstants.CONTACT_DETAILS_SECOND);
+                CONTACT_DETAILS_FIRST,
+                CONTACT_DETAILS_SECOND);
         when(contactDetailsRepository.findAll()).thenReturn(contactDetailsList);
         List<ContactDetailsDto> expectedDTOs = List.of(
-                CustomerServiceConstants.FIRST_CONTACT_DETAILS_DTO,
-                CustomerServiceConstants.SECOND_CONTACT_DETAILS_DTO);
+                FIRST_CONTACT_DETAILS_DTO,
+                SECOND_CONTACT_DETAILS_DTO);
 
         // when
         List<ContactDetailsDto> result = service.findAll(Pageable.unpaged());
@@ -102,7 +109,7 @@ class ContactDetailsServiceImplTest {
     }
 
     @Test
-    void testContactDetailsServiceImplSaveContactDetailsReturnContactDetailsDto() {
+    void contactDetailsServiceImplSaveContactDetails() {
         // given
         when(contactDetailsRepository.save(any(ContactDetails.class))).thenReturn(contactDetails);
 
@@ -116,9 +123,9 @@ class ContactDetailsServiceImplTest {
     }
 
     @Test
-    public void testContactDetailsServiceImplUpdateContactDetailsReturnContactDetailsDto() {
+    public void contactDetailsServiceImplUpdateContactDetails() {
         // given
-        when(contactDetailsRepository.findById(contactDetails.getId())).thenReturn(Optional.of(contactDetails));
+        when(contactDetailsRepository.findById(contactDetailsDto.getId())).thenReturn(Optional.of(contactDetails));
         when(contactDetailsRepository.save(contactDetails)).thenReturn(contactDetails);
 
         // when
@@ -131,12 +138,12 @@ class ContactDetailsServiceImplTest {
     }
 
     @Test
-    public void testContactDetailsServiceDeleteContactDetails() {
+    public void contactDetailsServiceDeleteContactDetails() {
         // when
-        service.delete(contactDetails.getId());
+        service.delete(contactDetailsId);
 
         // then
-        verify(contactDetailsRepository, times(1)).deleteById(contactDetails.getId());
+        verify(contactDetailsRepository, times(1)).deleteById(contactDetailsId);
     }
 
 }

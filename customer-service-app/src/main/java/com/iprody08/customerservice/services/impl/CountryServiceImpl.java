@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 @Slf4j
@@ -35,7 +34,6 @@ public class CountryServiceImpl implements CountryService {
     @Override
     public List<CountryDto> findAll(Pageable pageable) {
         return countryRepository.findAll().stream()
-                .map(countryMapper::countryToDto)
-                .collect(Collectors.toList());
+                .map(countryMapper::countryToDto).toList();
     }
 }
