@@ -1,12 +1,14 @@
 package com.iprody08.customerservice.dto;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.Instant;
 
+@Builder
 @Getter
 @Setter
 @NoArgsConstructor
@@ -35,4 +37,5 @@ public class CustomerDto {
 
     private Instant updatedContactDetailsAt;
 
+    private ContactDetailsDto contactDetails;
 }
