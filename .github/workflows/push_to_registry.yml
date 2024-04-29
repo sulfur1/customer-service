@@ -7,7 +7,7 @@ on:
 env:
   REGISTRY: ghcr.io
   NAME_IMAGE: iprody/iprody-devs-gr0000000008-customer-service
-  JAR_FILE: customer-service-app/target/customer-service-app-0.0.1-SNAPSHOT.jar
+  JAR_FILE: customer-service-app-0.0.1-SNAPSHOT.jar
 jobs:
   push_to_github_registry:
     runs-on: ubuntu-latest
