@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 @Slf4j
@@ -28,14 +27,13 @@ public class CountryServiceImpl implements CountryService {
 
     @Override
     public Optional<CountryDto> findCountryById(long id) {
-        return countryRepository.findById(id) //todo add factory validator
+        return countryRepository.findById(id)
                 .map(countryMapper::countryToDto);
     }
 
     @Override
     public List<CountryDto> findAll(Pageable pageable) {
-        return countryRepository.findAll().stream() //todo add factory validator
-                .map(countryMapper::countryToDto)
-                .collect(Collectors.toList());
+        return countryRepository.findAll().stream()
+                .map(countryMapper::countryToDto).toList();
     }
 }

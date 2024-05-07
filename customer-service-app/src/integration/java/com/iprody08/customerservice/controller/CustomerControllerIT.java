@@ -1,6 +1,5 @@
 package com.iprody08.customerservice.controller;
 
-import com.iprody08.customerservice.dto.ContactDetailsDto;
 import com.iprody08.customerservice.dto.CustomerDto;
 import com.iprody08.customerservice.services.CustomerService;
 import com.iprody08.customerservice.util.JsonUtil;
@@ -41,12 +40,9 @@ public class CustomerControllerIT {
         CustomerDto customerDto = CustomerDto.builder()
                 .name(USERNAME_FIRST)
                 .surname(SURNAME_FIRST)
-                .telegramId(TELEGRAM_ID_FIRST)
-                .email(EMAIL_FIRST)
+                .telegramId(TELEGRAM_ID_FIRST_IT)
+                .email(EMAIL_FIRST_IT)
                 .countryId(COUNTRY_ID_FIRST)
-                .contactDetails(ContactDetailsDto.builder()
-                        .email(EMAIL_FIRST)
-                        .build())
                 .build();
 
         // when
@@ -81,12 +77,9 @@ public class CustomerControllerIT {
         CustomerDto customerDto = CustomerDto.builder()
                 .name(USERNAME_FIRST)
                 .surname(SURNAME_FIRST)
-                .telegramId(TELEGRAM_ID_FIRST)
-                .email(EMAIL_FIRST)
+                .telegramId(TELEGRAM_ID_FIRST_IT)
+                .email(EMAIL_FIRST_IT)
                 .countryId(COUNTRY_ID_FIRST)
-                .contactDetails(ContactDetailsDto.builder()
-                        .email(EMAIL_FIRST)
-                        .build())
                 .build();
 
         return customerService.addCustomer(customerDto);
@@ -98,22 +91,16 @@ public class CustomerControllerIT {
         CustomerDto customer1 = CustomerDto.builder()
                 .name(USERNAME_FIRST)
                 .surname(SURNAME_FIRST)
-                .email(EMAIL_FIRST)
-                .telegramId(TELEGRAM_ID_FIRST)
+                .email(EMAIL_FIRST_IT)
+                .telegramId(TELEGRAM_ID_FIRST_IT)
                 .countryId(COUNTRY_ID_FIRST)
-                .contactDetails(ContactDetailsDto.builder()
-                        .email(EMAIL_FIRST)
-                        .build())
                 .build();
         CustomerDto customer2 = CustomerDto.builder()
                 .name(USERNAME_SECOND)
                 .surname(SURNAME_SECOND)
-                .email(EMAIL_SECOND)
-                .telegramId(TELEGRAM_ID_SECOND)
+                .email(EMAIL_SECOND_IT)
+                .telegramId(TELEGRAM_ID_SECOND_IT)
                 .countryId(COUNTRY_ID_SECOND)
-                .contactDetails(ContactDetailsDto.builder()
-                        .email(EMAIL_SECOND)
-                        .build())
                 .build();
 
         customerService.addCustomer(customer1);
@@ -125,11 +112,11 @@ public class CustomerControllerIT {
                         .accept(MediaType.APPLICATION_JSON))
                 // then
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.content", Matchers.hasSize(2)))
-                .andExpect(jsonPath("$.content[0].name").value(USERNAME_FIRST))
-                .andExpect(jsonPath("$.content[0].surname").value(SURNAME_FIRST))
-                .andExpect(jsonPath("$.content[1].name").value(USERNAME_SECOND))
-                .andExpect(jsonPath("$.content[1].surname").value(SURNAME_SECOND));
+                .andExpect(jsonPath("$", Matchers.hasSize(2)))
+                .andExpect(jsonPath("$[0].name").value(USERNAME_FIRST))
+                .andExpect(jsonPath("$[0].surname").value(SURNAME_FIRST))
+                .andExpect(jsonPath("$[1].name").value(USERNAME_SECOND))
+                .andExpect(jsonPath("$[1].surname").value(SURNAME_SECOND));
     }
 
     @Test
@@ -138,12 +125,9 @@ public class CustomerControllerIT {
         CustomerDto originalCustomer = CustomerDto.builder()
                 .name(USERNAME_FIRST)
                 .surname(SURNAME_FIRST)
-                .telegramId(TELEGRAM_ID_FIRST)
-                .email(EMAIL_FIRST)
+                .telegramId(TELEGRAM_ID_FIRST_IT)
+                .email(EMAIL_FIRST_IT)
                 .countryId(COUNTRY_ID_FIRST)
-                .contactDetails(ContactDetailsDto.builder()
-                        .email(EMAIL_FIRST)
-                        .build())
                 .build();
 
         CustomerDto addedCustomer = customerService.addCustomer(originalCustomer);
@@ -168,12 +152,9 @@ public class CustomerControllerIT {
         CustomerDto customerDto = CustomerDto.builder()
                 .name(USERNAME_FIRST)
                 .surname(SURNAME_FIRST)
-                .telegramId(TELEGRAM_ID_FIRST)
-                .email(EMAIL_FIRST)
+                .telegramId(TELEGRAM_ID_FIRST_IT)
+                .email(EMAIL_FIRST_IT)
                 .countryId(COUNTRY_ID_FIRST)
-                .contactDetails(ContactDetailsDto.builder()
-                        .email(EMAIL_FIRST)
-                        .build())
                 .build();
 
         CustomerDto addedCustomer = customerService.addCustomer(customerDto);

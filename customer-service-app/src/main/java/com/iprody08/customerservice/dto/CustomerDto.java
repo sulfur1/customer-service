@@ -36,6 +36,4 @@ public class CustomerDto {
     private Instant createdContactDetailsAt;
 
     private Instant updatedContactDetailsAt;
-
-    private ContactDetailsDto contactDetails;
 }

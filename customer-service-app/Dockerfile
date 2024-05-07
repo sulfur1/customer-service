@@ -2,7 +2,7 @@ FROM openjdk:21-slim
 
 WORKDIR /apps
 ARG JAR_FILE
-COPY /target/${JAR_FILE} /apps/customer-service-app.jar
+COPY target/${JAR_FILE} /apps/customer-service-app.jar
 COPY entrypoint.sh /apps/entrypoint.sh
 
 RUN adduser --system servuser
