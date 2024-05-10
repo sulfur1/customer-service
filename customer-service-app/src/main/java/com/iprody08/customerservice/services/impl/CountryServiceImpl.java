@@ -1,7 +1,7 @@
 package com.iprody08.customerservice.services.impl;
 
 import com.iprody08.customerservice.dto.CountryDto;
-import com.iprody08.customerservice.dto.mapper.CountryMapper;
+import com.iprody08.customerservice.mapper.CountryMapper;
 import com.iprody08.customerservice.repositories.CountryRepository;
 import com.iprody08.customerservice.services.CountryService;
 import lombok.extern.slf4j.Slf4j;

@@ -15,9 +15,9 @@
 	<groupId>com.iprody08</groupId>
 	<artifactId>customer-service</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
+	<packaging>pom</packaging>
 	<name>customer-service</name>
 	<description>Demo project for Spring Boot</description>
-	<packaging>pom</packaging>
 
 	<properties>
 		<java.version>21</java.version>
@@ -28,6 +28,7 @@
 	<modules>
 		<module>customer-service-app</module>
 		<module>e2e</module>
+		<module>customer-service-dto</module>
 	</modules>
 
 	<build>
