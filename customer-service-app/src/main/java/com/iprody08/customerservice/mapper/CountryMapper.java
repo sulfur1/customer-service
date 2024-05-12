@@ -1,4 +1,4 @@
-package com.iprody08.customerservice.dto.mapper;
+package com.iprody08.customerservice.mapper;
 
 import com.iprody08.customerservice.dto.CountryDto;
 import com.iprody08.customerservice.entities.Country;
