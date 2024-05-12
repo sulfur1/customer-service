@@ -78,6 +78,11 @@
 			<scope>test</scope>
 		</dependency>
 		<dependency>
+			<groupId>com.iprody08</groupId>
+			<artifactId>customer-service-dto</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+		<dependency>
 			<groupId>com.h2database</groupId>
 			<artifactId>h2</artifactId>
 			<scope>test</scope>

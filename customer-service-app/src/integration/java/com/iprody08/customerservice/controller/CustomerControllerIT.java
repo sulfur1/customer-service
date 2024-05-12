@@ -1,8 +1,8 @@
 package com.iprody08.customerservice.controller;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.iprody08.customerservice.dto.CustomerDto;
 import com.iprody08.customerservice.services.CustomerService;
-import com.iprody08.customerservice.util.JsonUtil;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,8 +12,12 @@ import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.http.MediaType;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
+
+import java.util.Optional;
 
 import static com.iprody08.customerservice.controller.TestConstant.*;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.RANDOM_PORT;
 import static org.springframework.test.annotation.DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -34,6 +38,9 @@ public class CustomerControllerIT {
     @Autowired
     private MockMvc mockMvc;
 
+    @Autowired
+    private ObjectMapper objectMapper;
+
     @Test
     public void testAddCustomer() throws Exception {
         // given
@@ -47,13 +54,19 @@ public class CustomerControllerIT {
 
         // when
         mockMvc.perform(post(BASE_URL)
-                        .content(JsonUtil.toJson(customerDto))
+                        .content(objectMapper.writeValueAsString(customerDto))
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON))
                 // then
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.name").value(USERNAME_FIRST))
                 .andExpect(jsonPath("$.surname").value(SURNAME_FIRST));
+
+        // Verify
+        Optional<CustomerDto> testCustomer = customerService.findCustomerById(CUSTOMER_ID_FIRST);
+        assertTrue(testCustomer.isPresent(), "Customer add to db success");
+        assertEquals(USERNAME_FIRST, testCustomer.get().getName(), "Customer name success");
+        assertEquals(SURNAME_FIRST, testCustomer.get().getSurname(), "Customer surname success");
     }
 
     @Test
@@ -63,14 +76,24 @@ public class CustomerControllerIT {
         Long customerId = customer.getId();
 
         // when
-        mockMvc.perform(get(GET_CUSTOMER_BY_ID, customerId)
+        MvcResult mvcResult = mockMvc.perform(get(GET_CUSTOMER_BY_ID, customerId)
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON))
                 // then
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id").value(customerId))
-                .andExpect(jsonPath("$.name").value(customer.getName()))
-                .andExpect(jsonPath("$.surname").value(customer.getSurname()));
+                .andExpect(jsonPath("$.name").value(USERNAME_FIRST))
+                .andExpect(jsonPath("$.surname").value(SURNAME_FIRST))
+                .andReturn();
+
+        // Verify
+        CustomerDto getCustomer = objectMapper.readValue(
+                mvcResult.getResponse().getContentAsString(), CustomerDto.class);
+
+        assertNotNull(getCustomer);
+        assertEquals(customer.getId(), getCustomer.getId(), "Customer ID success");
+        assertEquals(customer.getName(), getCustomer.getName(), "Customer name success");
+        assertEquals(customer.getSurname(), getCustomer.getSurname(), "Customer surname success");
     }
 
     private CustomerDto addCustomer() {
@@ -130,20 +153,27 @@ public class CustomerControllerIT {
                 .countryId(COUNTRY_ID_FIRST)
                 .build();
 
-        CustomerDto addedCustomer = customerService.addCustomer(originalCustomer);
+        CustomerDto addCustomerDB = customerService.addCustomer(originalCustomer);
 
-        addedCustomer.setName(USERNAME_SECOND);
-        addedCustomer.setSurname(SURNAME_SECOND);
+        addCustomerDB.setName(USERNAME_SECOND);
+        addCustomerDB.setSurname(SURNAME_SECOND);
 
         // when
-        mockMvc.perform(put(GET_CUSTOMER_BY_ID, addedCustomer.getId())
-                        .content(JsonUtil.toJson(addedCustomer))
+        mockMvc.perform(put(GET_CUSTOMER_BY_ID, addCustomerDB.getId())
+                        .content(objectMapper.writeValueAsString(addCustomerDB))
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON))
                 // then
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.name").value(USERNAME_SECOND))
                 .andExpect(jsonPath("$.surname").value(SURNAME_SECOND));
+
+        // Verify
+        Optional<CustomerDto> getCustomer = customerService.findCustomerById(addCustomerDB.getId());
+        assertTrue(getCustomer.isPresent(), "Update customer success");
+        CustomerDto updateCustomer = getCustomer.get();
+        assertEquals(USERNAME_SECOND, updateCustomer.getName(), "Customer name success");
+        assertEquals(SURNAME_SECOND, updateCustomer.getSurname(), "Customer surname success");
     }
 
     @Test
@@ -157,13 +187,17 @@ public class CustomerControllerIT {
                 .countryId(COUNTRY_ID_FIRST)
                 .build();
 
-        CustomerDto addedCustomer = customerService.addCustomer(customerDto);
+        CustomerDto customer = customerService.addCustomer(customerDto);
 
         // when
-        mockMvc.perform(delete(GET_CUSTOMER_BY_ID, addedCustomer.getId())
+        mockMvc.perform(delete(GET_CUSTOMER_BY_ID, customer.getId())
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON))
                 // then
                 .andExpect(status().isNoContent());
+
+        // Verify
+        Optional<CustomerDto> deleteCustomerDB = customerService.findCustomerById(customer.getId());
+        assertFalse(deleteCustomerDB.isPresent(), "Customer deleted sucess");
     }
 }

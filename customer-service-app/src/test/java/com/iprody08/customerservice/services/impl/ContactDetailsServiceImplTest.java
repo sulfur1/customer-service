@@ -1,7 +1,7 @@
 package com.iprody08.customerservice.services.impl;
 
 import com.iprody08.customerservice.dto.ContactDetailsDto;
-import com.iprody08.customerservice.dto.mapper.ContactDetailsMapper;
+import com.iprody08.customerservice.mapper.ContactDetailsMapper;
 import com.iprody08.customerservice.entities.ContactDetails;
 import com.iprody08.customerservice.repositories.ContactDetailsRepository;
 import org.junit.jupiter.api.BeforeEach;

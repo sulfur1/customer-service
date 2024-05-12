@@ -1,7 +1,7 @@
 package com.iprody08.customerservice.services.impl;
 
 import com.iprody08.customerservice.dto.CustomerDto;
-import com.iprody08.customerservice.dto.mapper.CustomerMapper;
+import com.iprody08.customerservice.mapper.CustomerMapper;
 import com.iprody08.customerservice.entities.ContactDetails;
 import com.iprody08.customerservice.entities.Country;
 import com.iprody08.customerservice.entities.Customer;
