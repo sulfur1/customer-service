@@ -62,6 +62,23 @@ public class CustomerController {
                         String.format("Customer not found by id: %s", id))));
     }
 
+    @Operation(
+            summary = "Get customer by telegram id",
+            description = "Returns the customer by telegram id"
+    )
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Customer found"),
+            @ApiResponse(responseCode = "404", description = "Customer not found")
+    })
+    @GetMapping("/telegram/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public CustomerDto getCustomerByTelegramId(@PathVariable String id) {
+        return customerService
+                .findCustomerByTelegramId(id)
+                .orElseThrow(() -> new NotFoundException(
+                        String.format("Customer not found by telegram id: %s", id)));
+    }
+
     @Operation(summary = "Get all customers", description = "Returns all customers")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Customers found")
