@@ -6,10 +6,10 @@ import com.iprody08.customerservice.services.CustomerService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,10 +22,12 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
+import java.util.Optional;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = "/api/customers", produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping("/api/customers")
+@Slf4j
 public class CustomerController {
 
     private final CustomerService customerService;
@@ -35,14 +37,15 @@ public class CustomerController {
         this.customerService = customerService;
     }
 
-    @Operation(summary = "Add a new customer", description = "Returns the added customer")
+    @Operation(summary = "Add a new customer", description = "Added customer")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201", description = "Customer created")
     })
-    @PostMapping
-    public ResponseEntity<CustomerDto> addCustomer(@Valid @RequestBody CustomerDto customerDto) {
-        CustomerDto customer = customerService.addCustomer(customerDto);
-        return ResponseEntity.status(HttpStatus.CREATED).body(customer);
+    @PostMapping()
+    @ResponseStatus(HttpStatus.CREATED)
+    public CustomerDto addCustomer(@Valid @RequestBody CustomerDto customerDto) {
+        log.info("Add customer success");
+        return customerService.addCustomer(customerDto);
     }
 
     @Operation(summary = "Get customer by ID", description = "Returns the customer by ID")
@@ -52,11 +55,11 @@ public class CustomerController {
     })
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public CustomerDto getCustomerById(@PathVariable long id) {
-        return customerService
+    public Optional<CustomerDto> getCustomerById(@PathVariable("id") Long id) {
+        return Optional.ofNullable(customerService
                 .findCustomerById(id)
                 .orElseThrow(() -> new NotFoundException(
-                        String.format("Customer not found by id: %s", id)));
+                        String.format("Customer not found by id: %s", id))));
     }
 
     @Operation(summary = "Get all customers", description = "Returns all customers")
@@ -75,7 +78,7 @@ public class CustomerController {
             @ApiResponse(responseCode = "404", description = "Customer not found")
     })
     @PutMapping("/{id}")
-    public ResponseEntity<CustomerDto> updateCustomer(@PathVariable long id,
+    public ResponseEntity<CustomerDto> updateCustomer(@PathVariable Long id,
                                                       @Valid @RequestBody CustomerDto customerDto) {
         customerDto.setId(id);
         CustomerDto customer = customerService.updateCustomer(customerDto);
