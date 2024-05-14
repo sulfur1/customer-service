@@ -1,5 +1,6 @@
 package com.iprody08.customerservice.dto;
 
+import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -25,8 +26,10 @@ public class CustomerDto {
 
     private String countryName;
 
+    @Pattern(regexp = "^(.+)@(\\S+)$", message = "email must match pattern user@domain.com")
     private String email;
 
+    @Pattern(regexp = "^@[a-zA-Z0-9]+$")
     private String telegramId;
 
     private Instant createdCustomerAt;

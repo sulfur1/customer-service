@@ -17,7 +17,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
-import javax.validation.constraints.Pattern;
+
 import java.time.Instant;
 
 @Getter
@@ -39,11 +39,9 @@ public class ContactDetails {
     private Customer customer;
 
     @Column(nullable = false)
-    @Pattern(regexp = "^(.+)@(\\\\S+)$", message = "email must match pattern user@domain.com")
     private String email;
 
     @Column(name = "telegram_id", nullable = false)
-    @Pattern(regexp = "^@[a-zA-Z0-9]+$")
     private String telegramId;
 
     @CreationTimestamp
