@@ -18,7 +18,7 @@ public class ContactDetailsDto {
 
     private Long customerId;
 
-    @Pattern(regexp = "^(.+)@(\\\\S+)$", message = "email must match pattern user@domain.com")
+    @Pattern(regexp = "^(.+)@(\\S+)$", message = "email must match pattern user@domain.com")
     private String email;
 
     @Pattern(regexp = "^@[a-zA-Z0-9]+$")
