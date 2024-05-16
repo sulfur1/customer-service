@@ -3,6 +3,9 @@ package com.iprody08.customerservice.controllers;
 import com.iprody08.customerservice.dto.ContactDetailsDto;
 import com.iprody08.customerservice.errors.NotFoundException;
 import com.iprody08.customerservice.services.ContactDetailsService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
@@ -32,12 +35,20 @@ public class ContactDetailsController {
         this.contactDetailsService = contactDetailsService;
     }
 
+    @Operation(summary = "Get contact details", description = "Returns all contact details")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Contact details found")
+    })
     @GetMapping
     public ResponseEntity<List<ContactDetailsDto>> getAllContactDetails(Pageable pageable) {
         List<ContactDetailsDto> contactDetailsList = contactDetailsService.findAll(pageable);
         return ResponseEntity.status(HttpStatus.OK).body(contactDetailsList);
     }
 
+    @Operation(summary = "Add new contact details", description = "Added contact details")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "201", description = "Contact details created")
+    })
     @PostMapping
     public ResponseEntity<ContactDetailsDto> addContactDetails(@Valid @RequestBody ContactDetailsDto contactDetailsDto) {
 
@@ -45,6 +56,11 @@ public class ContactDetailsController {
         return ResponseEntity.status(HttpStatus.CREATED).body(savedContactDetails);
     }
 
+    @Operation(summary = "Get contact details by ID", description = "Returns the contact details by ID")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Contact details found"),
+            @ApiResponse(responseCode = "404", description = "Contact details not found")
+    })
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     public ContactDetailsDto getContactDetailsById(@PathVariable long id) {
@@ -55,6 +71,11 @@ public class ContactDetailsController {
                 ));
     }
 
+    @Operation(summary = "Update contact details by ID", description = "Returns the updated contact details")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Contact details updated"),
+            @ApiResponse(responseCode = "404", description = "Contact details not found")
+    })
     @PutMapping("/{id}")
     public ResponseEntity<ContactDetailsDto> updateContactDetails(@PathVariable long id,
                                                                   @Valid @RequestBody ContactDetailsDto contactDetailsDto) {
@@ -63,6 +84,11 @@ public class ContactDetailsController {
         return ResponseEntity.status(HttpStatus.OK).body(contactDetails);
     }
 
+    @Operation(summary = "Delete contact details by ID", description = "Deletes the contact details by ID")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "204", description = "Contact details deleted"),
+            @ApiResponse(responseCode = "404", description = "Contact details not found")
+    })
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteContactDetails(@PathVariable long id) {
