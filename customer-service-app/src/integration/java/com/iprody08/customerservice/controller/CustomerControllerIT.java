@@ -62,7 +62,6 @@ public class CustomerControllerIT {
                 .andExpect(jsonPath("$.name").value(USERNAME_FIRST))
                 .andExpect(jsonPath("$.surname").value(SURNAME_FIRST));
 
-        // Verify
         Optional<CustomerDto> testCustomer = customerService.findCustomerById(CUSTOMER_ID_FIRST);
         assertTrue(testCustomer.isPresent(), "Customer add to db success");
         assertEquals(USERNAME_FIRST, testCustomer.get().getName(), "Customer name success");
@@ -86,7 +85,6 @@ public class CustomerControllerIT {
                 .andExpect(jsonPath("$.surname").value(SURNAME_FIRST))
                 .andReturn();
 
-        // Verify
         CustomerDto getCustomer = objectMapper.readValue(
                 mvcResult.getResponse().getContentAsString(), CustomerDto.class);
 
@@ -168,7 +166,6 @@ public class CustomerControllerIT {
                 .andExpect(jsonPath("$.name").value(USERNAME_SECOND))
                 .andExpect(jsonPath("$.surname").value(SURNAME_SECOND));
 
-        // Verify
         Optional<CustomerDto> getCustomer = customerService.findCustomerById(addCustomerDB.getId());
         assertTrue(getCustomer.isPresent(), "Update customer success");
         CustomerDto updateCustomer = getCustomer.get();
@@ -196,7 +193,6 @@ public class CustomerControllerIT {
                 // then
                 .andExpect(status().isNoContent());
 
-        // Verify
         Optional<CustomerDto> deleteCustomerDB = customerService.findCustomerById(customer.getId());
         assertFalse(deleteCustomerDB.isPresent(), "Customer deleted sucess");
     }
