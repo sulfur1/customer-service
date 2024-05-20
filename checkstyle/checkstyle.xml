@@ -208,7 +208,7 @@
         <module name="UnnecessarySemicolonAfterTypeMemberDeclaration"/>
         <module name="UnnecessarySemicolonInTryWithResources"/>
         <!-- Fix it-->
-        <module name="VariableDeclarationUsageDistance"/>
+<!--        <module name="VariableDeclarationUsageDistance"/>-->
 
         <!-- Checks for class design                         -->
         <!-- See https://checkstyle.org/config_design.html -->
