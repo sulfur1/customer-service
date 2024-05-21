@@ -31,7 +31,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest
 class CustomerControllerTest {
 
-    private static final String BASE_URL = "/api/customers/";
+    private static final String BASE_URL = "/api/v1/customers/";
 
     @Autowired
     private JdbcTemplate jdbcTemplate;

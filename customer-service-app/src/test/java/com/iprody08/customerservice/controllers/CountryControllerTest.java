@@ -23,7 +23,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest
 class CountryControllerTest {
 
-    private static final String BASE_URL = "/api/countries";
+    private static final String BASE_URL = "/api/v1/countries";
 
     @Autowired
     private MockMvc mvc;

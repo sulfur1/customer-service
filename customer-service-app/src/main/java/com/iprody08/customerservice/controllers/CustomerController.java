@@ -26,7 +26,7 @@ import java.util.Optional;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/customers")
+@RequestMapping("/api/v1/customers")
 @Slf4j
 public class CustomerController {
 
