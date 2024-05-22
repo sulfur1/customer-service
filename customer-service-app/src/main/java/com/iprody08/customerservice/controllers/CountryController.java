@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = "/api/countries", produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(value = "/api/v1/countries", produces = MediaType.APPLICATION_JSON_VALUE)
 @Slf4j
 public class CountryController {
 
