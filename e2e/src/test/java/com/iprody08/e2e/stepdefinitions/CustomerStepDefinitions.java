@@ -1,13 +1,10 @@
 package com.iprody08.e2e.stepdefinitions;
 
-import groovy.util.logging.Slf4j;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import io.restassured.RestAssured;
-//import io.restassured.config.RestAssuredConfig;
-//import io.restassured.config.SSLConfig;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 import org.json.simple.JSONObject;
@@ -15,7 +12,6 @@ import org.json.simple.JSONObject;
 import static io.restassured.RestAssured.given;
 import static org.junit.Assert.assertEquals;
 
-@Slf4j
 public class CustomerStepDefinitions {
     private static final String BASE_URL = "https://localhost";
     private static final String API_PATH = "/api";
@@ -34,11 +30,6 @@ public class CustomerStepDefinitions {
 
     @Given("I hit the url of get customers api endpoint")
     public void hitTheUrlOfGetCustomersApiEndpoint() {
-        // remote
-//        RestAssuredConfig config = RestAssuredConfig.config()
-//        .sslConfig(SSLConfig.sslConfig().relaxedHTTPSValidation());
-//        RequestSpecification httpRequest = RestAssured.given().config(config);
-        // local
         RestAssured.baseURI = BASE_URL;
         RestAssured.useRelaxedHTTPSValidation();
     }
@@ -80,7 +71,6 @@ public class CustomerStepDefinitions {
         httpRequest.header(CONTENT_TYPE, APPLICATION_JSON);
         httpRequest.body(requestParams.toJSONString());
         response = httpRequest.post(CUSTOMERS_PATH);
-
     }
 
     @When("I pass the customer id {int} in the request")
@@ -122,7 +112,6 @@ public class CustomerStepDefinitions {
 
         httpRequest.header(CONTENT_TYPE, APPLICATION_JSON);
         httpRequest.body(requestParams.toJSONString());
-
         response = httpRequest.put(SLASH + customerId);
     }
 
