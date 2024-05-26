@@ -1,4 +1,4 @@
-Feature: delete customer using DELETE API
+Feature: Delete customer using DELETE API
 
   Scenario Outline: validate delete customer api status code works correctly
     Given I hit the url of delete customer api endpoint
@@ -7,4 +7,3 @@ Feature: delete customer using DELETE API
     Examples:
       | CustomerId |
       | 37         |
-
