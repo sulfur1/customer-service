@@ -23,7 +23,7 @@ public class ContactDetailsDto {
     @Pattern(regexp = "^(.+)@(\\S+)$", message = "email must match pattern user@domain.com")
     private String email;
 
-    @Pattern(regexp = "^@[a-zA-Z0-9]+$")
+    @Pattern(regexp = ".*\\B@(?=\\w{5,32}\\b)[a-zA-Z0-9]+(?:_[a-zA-Z0-9]+)*.*")
     private String telegramId;
 
     private Instant createdAt;
