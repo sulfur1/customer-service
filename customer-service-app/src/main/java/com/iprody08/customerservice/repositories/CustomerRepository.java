@@ -22,6 +22,7 @@ public interface CustomerRepository extends JpaRepository<Customer, Long> {
     @Query("""
             SELECT c FROM Customer c
             JOIN FETCH c.contactDetails d
+            JOIN FETCH c.country
             WHERE c.id = d.customer.id
             AND d.email = :email
             """)
